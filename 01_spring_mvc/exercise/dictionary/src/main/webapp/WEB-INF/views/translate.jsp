@@ -9,10 +9,11 @@
 <html>
 <head>
     <title>Title</title>
+
 </head>
 <body>
 <h2>Vietnamese Dictionary</h2>
-<form method="post">
+<form method="get" action="/trans">
     <input type="text" name="english" placeholder="Nhập tiếng anh: "/><br><br>
     <input type="submit" id="submit" value="Search"/><br><br>
     <span>Result : ${result}</span>

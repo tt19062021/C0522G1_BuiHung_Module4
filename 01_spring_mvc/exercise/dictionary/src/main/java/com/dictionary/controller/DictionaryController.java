@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class DictionaryController {
+
     @Autowired
     private IDictionaryService dictionaryService;
 
@@ -19,13 +20,13 @@ public class DictionaryController {
         return "translate";
     }
 
-    @PostMapping
+    @GetMapping("/trans")
     public String translate(@RequestParam String english, Model model) {
         String result = dictionaryService.translate(english);
         if (result != null) {
             model.addAttribute("result", result);
         } else {
-            model.addAttribute("result", "Not found");
+            model.addAttribute("result", "Please input agian");
         }
 
         return "translate";

@@ -1,7 +1,8 @@
 package com.exchange.controller;
 
 
-import com.exchange.service.ExchangeService;
+import com.exchange.service.IExchangeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ExchangeController {
 
     @Autowired
-    private ExchangeService service;
+    private IExchangeService iExchangeService;
 
     @GetMapping("/")
     public String convent() {
-
         return "list";
     }
 
     @GetMapping("/convert")
-    public String result(@RequestParam double money, Model model) {
-
-        model.addAttribute("kq", service.showRate(money));
+    public String result(@RequestParam double usd, Model model) {
+        Double exchange = iExchangeService.getMoney(usd);
+        model.addAttribute("exchange", exchange);
         return "list";
 
     }

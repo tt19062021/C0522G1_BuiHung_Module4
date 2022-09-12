@@ -19,6 +19,7 @@ public class DictionaryRepository implements IDictionaryRepository {
             mapDictionary.put("street","con đường");
             mapDictionary.put("bean","hạt đậu");
         }
+
         return mapDictionary.get(english);
     }
 }
