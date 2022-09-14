@@ -1,0 +1,77 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+<h3 style="text-align: center">List Product</h3>
+
+<a class="btn btn-primary" th:href="@{/create}" role="button">Add new Product</a>
+
+<h2 class="btn btn-warning">
+    <div >
+        <div th:if="${messegerUpdate}">
+            <span th:text="${messegerUpdate}"></span>
+        </div>
+    </div>
+</h2>
+<h2 class="btn btn-danger">
+    <div >
+        <div th:if="${success}">
+            <span th:text="${success}"></span>
+        </div>
+    </div>
+</h2>
+
+<form action="/search" method="get">
+    <input type="search" name="name" placeholder="search name...">
+    <button type="submit">Search</button>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <!--        <th scope="col">#</th>-->
+        <th scope="col" class="table-secondary">Name</th>
+        <th scope="col" class="table-warning">Price</th>
+        <th scope="col" class="table-info">Description</th>
+        <th scope="col" class="table-primary">Producer</th>
+        <th scope="col" class="table-danger">Update</th>
+        <th scope="col" class="table-danger">View</th>
+        <th scope="col" class="table-danger">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pro : ${productList}" >
+        <!--        <td th:text="${pro.getId()}"></td>-->
+        <td th:text="${pro.getProductName()}" class="table-danger"></td>
+        <td th:text="${pro.getPrice()}" class="table-info"></td>
+        <td th:text="${pro.getDescription()}" class="table-primary"></td>
+        <td th:text="${pro.getProducer()}" class="table-secondary"></td>
+        <td><a class="btn btn-info" th:href="@{/{id}/edit(id=${pro.getId()})}" role="button">Update</a></td>
+        <td><a class="btn btn-danger" th:href="@{/{id}/view(id=${pro.getId()})}" role="button">View</a></td>
+        <td><a class="btn btn-warning" th:href="@{/{id}/delete(id=${pro.getId()})}" role="button">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</html>
