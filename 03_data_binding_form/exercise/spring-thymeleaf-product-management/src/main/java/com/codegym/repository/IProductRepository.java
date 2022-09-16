@@ -5,7 +5,7 @@ import com.codegym.model.Product;
 
 import java.util.List;
 
-public interface IProductReponsitory {
+public interface IProductRepository {
     List<Product> findAll();
 
     Product findById(int id);
@@ -18,5 +18,5 @@ public interface IProductReponsitory {
 
     String view(int id);
 
-    void update(int id, Product product);
+    void update(Product product);
 }
