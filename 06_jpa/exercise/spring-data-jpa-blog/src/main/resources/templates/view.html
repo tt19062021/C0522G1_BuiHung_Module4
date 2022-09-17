@@ -2,29 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/layout :: head"></head>
 <body>
-<h3>View Product</h3>
 
-<a class="btn btn-primary" th:href="@{/}" role="button">Back to customer list</a>
+<a class="btn btn-primary" th:href="@{/}" role="button">Back My Blog</a>
 <div id="detail">
-    <div class="cusdetail">
-        <label>ID:</label>
-        <label th:text="${product.id}"></label>
+<!--    <div class="cusdetail">-->
+<!--        <label th:text="${blogList.id}"></label>-->
+<!--    </div>-->
+    <div class="cusdetail" style="text-align: center">
+        <b><label th:text="${blogList.title}"></label></b>
     </div>
     <div class="cusdetail">
-        <label>Name:</label>
-        <label th:text="${product.name}"></label>
+        <label th:text="${blogList.content}"></label>
     </div>
     <div class="cusdetail">
-        <label>Price:</label>
-        <label th:text="${product.price}"></label>
+        <label th:text="${blogList.author}"></label>
     </div>
     <div class="cusdetail">
-        <label>Description:</label>
-        <label th:text="${product.description}"></label>
-    </div>
-    <div class="cusdetail">
-        <label>Producer:</label>
-        <label th:text="${product.producer}"></label>
+        <label th:text="${blogList.dateOfWriting}"></label>
     </div>
 </div>
 

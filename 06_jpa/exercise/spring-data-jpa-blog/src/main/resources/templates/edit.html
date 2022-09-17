@@ -2,28 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/layout :: head"></head>
 <body>
-<h3>Edit Product</h3>
+<h3>Edit Blog</h3>
 
-<a class="btn btn-primary" th:href="@{/}" role="button">Back to customer list</a>
+<a class="btn btn-primary" th:href="@{/}" role="button">Back Blog</a>
 <div id="form">
-    <form th:action="@{/update}" th:object="${product}"
+    <form th:action="@{/update}" th:object="${blogList}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>
-            <label>Product Name</label>
-            <input type="text" th:field="*{name}"/>
+            <label>Title Name:</label>
+            <input type="text" th:field="*{title}"/>
         </div>
         <div>
-            <label>Price</label>
-            <input type="email" th:field="*{price}"/>
+            <label>Content:</label>
+            <input type="email" th:field="*{content}"/>
         </div>
         <div>
-            <label>Description</label>
-            <input type="text" th:field="*{description}"/>
+            <label>Author:</label>
+            <input type="text" th:field="*{author}"/>
         </div>
         <div>
-            <label>Producer</label>
-            <input type="text" th:field="*{producer}"/>
+            <label>Date Write:</label>
+            <input type="text" th:field="*{dateOfWriting}"/>
         </div>
         <input type="submit" value="Save"/>
     </form>

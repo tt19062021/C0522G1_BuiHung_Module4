@@ -10,9 +10,9 @@
 
 <body>
 
-<h3 style="text-align: center" class="table-info">List Product</h3>
+<h2 style="text-align: center" class="table-info">Wellcom My Blog</h2>
 
-<a class="btn btn-primary" th:href="@{/create}" role="button">Add new Product</a>
+<a class="btn btn-primary" th:href="@{/create}" role="button">CREATE NEW BLOG</a>
 
 <h2  style="text-align: center;">
     <div >
@@ -29,34 +29,36 @@
     </div>
 </h2>
 
-<form action="/search" method="get">
-    <input type="search" name="name" placeholder="search name...">
-    <button type="submit">Search</button>
-</form>
+<!--<form action="/search" method="get">-->
+<!--    <input type="search" name="name" placeholder="search title...">-->
+<!--    <button type="submit">Search</button>-->
+<!--</form>-->
 
 <table class="table">
     <thead>
     <tr>
         <!--        <th scope="col">#</th>-->
-        <th scope="col" class="table-primary">Name</th>
-        <th scope="col" class="table-primary">Price</th>
-        <th scope="col" class="table-primary">Description</th>
-        <th scope="col" class="table-primary">Producer</th>
+        <th scope="col" class="table-primary">Title</th>
+        <th scope="col" class="table-primary">Content</th>
+        <th scope="col" class="table-primary">Author</th>
+        <th scope="col" class="table-primary">Date Write</th>
         <th scope="col" class="table-primary">Update</th>
-        <th scope="col" class="table-primary">View</th>
+<!--        <th scope="col" class="table-primary">View</th>-->
         <th scope="col" class="table-primary">Delete</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="pro : ${productList}" >
+    <tr th:each="blog : ${blogList}">
         <!--        <td th:text="${pro.getId()}"></td>-->
-        <td th:text="${pro.name}" class="table-info"></td>
-        <td th:text="${pro.price}" class="table-info"></td>
-        <td th:text="${pro.description}" class="table-info"></td>
-        <td th:text="${pro.producer}" class="table-info"></td>
-        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/edit(id=${pro.id})}" role="button">Update</a></td>
-        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/view(id=${pro.id})}" role="button">View</a></td>
-        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/delete(id=${pro.id})}" role="button">Delete</a></td>
+        <td th:text="${blog.title}" class="table-info"></td>
+        <td class="table-info">>
+            <a th:href="@{/{id}/view(id=${blog.id})}" role="button">Xem Tin.....</a>
+        </td>
+        <td th:text="${blog.author}" class="table-info"></td>
+        <td th:text="${blog.dateOfWriting}" class="table-info"></td>
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/edit(id=${blog.id})}" role="button">Update</a></td>
+<!--        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/view(id=${blog.id})}" role="button">View</a></td>-->
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/delete(id=${blog.id})}" role="button">Delete</a></td>
     </tr>
     </tbody>
 </table>

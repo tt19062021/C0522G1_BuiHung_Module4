@@ -3,11 +3,11 @@
 <head th:replace="/layout :: head"></head>
 <body>
 
-<h3>Add Product</h3>
+<h3>Create New Blog</h3>
 
-<a class="btn btn-primary" th:href="@{/}" role="button">Back to customer list</a>
+<a class="btn btn-primary" th:href="@{/}" role="button">Back My BLOG</a>
 <div id="form">
-    <form th:action="@{/save}" th:object="${product}"
+    <form th:action="@{/save}" th:object="${blogList}"
           method="POST" novalidate="novalidate">
         <div>
             <label>Id:</label>
@@ -15,20 +15,24 @@
         </div>
 
         <div>
-            <label>Product Name</label>
-            <input type="text" th:field="*{name}"/>
+            <label>Title:</label>
+            <input type="text" th:field="*{title}"/>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label"> Content:</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" type="text" th:field="*{content}"></textarea>
+        </div>
+<!--        <div>-->
+<!--            <label>Content</label>-->
+<!--            <textarea type="text" th:field="*{content}"></textarea>-->
+<!--        </div>-->
+        <div>
+            <label>Author:</label>
+            <input type="text" th:field="*{author}"/>
         </div>
         <div>
-            <label>Price</label>
-            <input type="number" th:field="*{price}"/>
-        </div>
-        <div>
-            <label>Description</label>
-            <input type="text" th:field="*{description}"/>
-        </div>
-        <div>
-            <label>Producer</label>
-            <input type="text" th:field="*{producer}"/>
+            <label>Date Writing:</label>
+            <input type="date" th:field="*{dateOfWriting}"/>
         </div>
         <input type="submit" value="Save"/>
     </form>
