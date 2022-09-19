@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class Blog {
     @Id
-    private int id;
+    private int id ;
     @Column(columnDefinition = "text")
     private String title;
     @Column(columnDefinition = "text")

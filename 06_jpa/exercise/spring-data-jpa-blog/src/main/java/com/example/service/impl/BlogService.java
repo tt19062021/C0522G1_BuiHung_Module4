@@ -4,7 +4,11 @@ import com.example.model.Blog;
 import com.example.repository.IBlogRepository;
 import com.example.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -37,6 +41,9 @@ public class BlogService implements IBlogService {
     public void remove(int id) {
         iBlogRepository.deleteById(id);
     }
+
+
+
 
 //    @Override
 //    public List<Blog> searchByName(String name) {
