@@ -8,10 +8,11 @@
 
 <p style="color: green" th:text="${mess}"></p>
 
-<table class="table">
+<table class="table table-primary">
     <tr>
         <th>#</th>
         <th>Name</th>
+        <th>View</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -19,9 +20,12 @@
     <tr th:each="category, status : ${categoryList}">
         <td th:text="${status.count}"></td>
         <td th:text="${category.categoryName}"></td>
+        <td><a th:href="@{/category/view/__${category.id}__}">view</a></td>
         <td><a th:href="@{/category/edit/__${category.id}__}">edit</a></td>
         <td><a th:href="@{/category/delete/__${category.id}__}">delete</a></td>
     </tr>
 </table>
+
+
 </body>
 </html>

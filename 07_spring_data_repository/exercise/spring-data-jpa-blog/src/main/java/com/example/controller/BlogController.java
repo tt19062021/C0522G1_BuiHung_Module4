@@ -31,9 +31,9 @@ public class BlogController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("categorys",iCategoryService.findByAll());
+        model.addAttribute("categorys", iCategoryService.findByAll());
         model.addAttribute("blogList", new Blog());
-        return "create";
+        return "/blog/create";
     }
 
     @PostMapping("/save")
@@ -45,30 +45,30 @@ public class BlogController {
 
     @GetMapping("/{id}/view")
     public String view(@PathVariable int id, Model model) {
-        model.addAttribute("categoryList",iCategoryService.findByAll());
+        model.addAttribute("categoryList", iCategoryService.findByAll());
         model.addAttribute("blogList", iBlogService.findById(id));
-        return "view";
+        return "/blog/view";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable int id, Model model) {
-        model.addAttribute("categoryList",iCategoryService.findByAll());
+        model.addAttribute("categoryList", iCategoryService.findByAll());
         model.addAttribute("blogList", iBlogService.findById(id));
-        return "edit";
+        return "/blog/edit";
     }
 
     @PostMapping("/update")
     public String update(Blog blog, RedirectAttributes redirectAttributes) {
         iBlogService.update(blog);
-        redirectAttributes.addFlashAttribute("messegerUpdate","UPDATE SUCCESS!!");
+        redirectAttributes.addFlashAttribute("messegerUpdate", "UPDATE SUCCESS!!");
         return "redirect:/blog";
     }
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable int id, Model model) {
-        model.addAttribute("categoryList",iCategoryService.findByAll());
+        model.addAttribute("categoryList", iCategoryService.findByAll());
         model.addAttribute("blogList", iBlogService.findById(id));
-        return "delete";
+        return "/blog/delete";
     }
 
     @PostMapping("/delete")
@@ -79,11 +79,12 @@ public class BlogController {
     }
 
     @GetMapping("/blog")
-    public String search(@PageableDefault(value = 3,sort = "dateOfWriting",
+    public String search(@PageableDefault(value = 3, sort = "dateOfWriting",
             direction = Sort.Direction.DESC) Pageable pageable,
-                         @RequestParam(value = "name",defaultValue = "") String name, Model model){
-        model.addAttribute("blogList", iBlogService.findAllByTitle(name,pageable));
-        return "list";
+                         @RequestParam(value = "name", defaultValue = "") String name, Model model) {
+        model.addAttribute("blogList", iBlogService.findAllByTitle(name, pageable));
+        model.addAttribute("name", name);
+        return "/blog/list";
     }
 
 

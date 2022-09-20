@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,15 +43,14 @@ public class BlogService implements IBlogService {
         iBlogRepository.deleteById(id);
     }
 
-    @Override
-    public Page<Blog> findAll(Pageable pageable) {
-        return iBlogRepository.findAll(pageable);
-    }
+
 
     @Override
     public Page<Blog> findAllByTitle(String name, Pageable pageable) {
         return iBlogRepository.findAllByTitleContaining(name,pageable);
     }
 
-
+    public Page<Blog> findAllViewBlog(int id,Pageable pageable){
+        return iBlogRepository.findAllViewBlog(id,pageable);
+    }
 }
