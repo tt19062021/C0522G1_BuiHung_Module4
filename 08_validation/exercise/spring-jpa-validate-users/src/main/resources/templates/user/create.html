@@ -3,44 +3,59 @@
 <head th:replace="/layout :: head"></head>
 <body>
 
-<h3>Create New Blog</h3>
+<h3>Create User</h3>
 
-<a class="btn btn-primary" th:href="@{/}" role="button">Back My BLOG</a>
+<a class="btn btn-primary" th:href="@{/}" role="button">Home</a>
 <div id="form">
-    <form th:action="@{/save}" th:object="${blogList}"
+    <form th:action="@{/save}" th:object="${userDto}"
           method="POST" novalidate="novalidate">
-        <div>
-            <label>Id:</label>
-            <input type="hidden" th:field="*{id}"/>
-        </div>
+        <table class="table">
+            <tr>
+                <td>Id:</td>
+                <td><input type="hidden" th:field="*{id}"/></td>
+            </tr>
 
-        <div>
-            <label>Title:</label>
-            <input type="text" th:field="*{title}"/>
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label"> Content:</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" type="text" th:field="*{content}"></textarea>
-        </div>
-<!--        <div>-->
-<!--            <label>Content</label>-->
-<!--            <textarea type="text" th:field="*{content}"></textarea>-->
-<!--        </div>-->
-        <div>
-            <label>Author:</label>
-            <input type="text" th:field="*{author}"/>
-        </div>
-        <div>
-            <label>Date Writing:</label>
-            <input type="date" th:field="*{dateOfWriting}"/>
-        </div>
-        <div>
-            <label>Category</label>
-            <select th:field="*{category}">
-                <option th:each="cate: ${categorys}" th:value="${cate.id}" th:text="${cate.categoryName}"></option>
-            </select>
-        </div>
-        <input type="submit" value="Save"/>
+            <tr>
+                <td>First:</td>
+                <td>
+                    <input type="text" th:field="*{firstName}"/>
+                    <p style="color: red" th:errors="*{firstName}"
+                       th:if="${#fields.hasErrors('firstName')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Last:</td>
+                <td><input type="text" th:field="*{lastName}"/>
+                    <p style="color: red" th:errors="*{lastName}"
+                       th:if="${#fields.hasErrors('lastName')}"></p></td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>
+                    <input type="text" th:field="*{phoneNumber}"/>
+                    <p style="color: #45a049" th:errors="*{phoneNumber}"
+                    th:if="${#fields.hasErrors('phoneNumber')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><input type="text" th:field="*{age}"/>
+                <p style="color: #45a049" th:errors="*{age}"
+                   th:if="${#fields.hasErrors('age')}"></p></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <input type="text" th:field="*{email}"/>
+                    <p style="color: red"th:errors="*{email}"
+                       th:if="${#fields.hasErrors('email')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Save"/></td>
+            </tr>
+
+        </table>
     </form>
 </div>
 <footer th:replace="/layout :: footer"></footer>
