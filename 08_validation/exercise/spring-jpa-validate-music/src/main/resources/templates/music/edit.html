@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+
+<h3>Create Music</h3>
+
+<a class="btn btn-primary" th:href="@{/}" role="button">Home</a>
+<div id="form">
+    <form th:action="@{/update}" th:object="${musicDto}"
+          method="POST" novalidate="novalidate">
+        <table class="table">
+            <tr>
+                <td>Id:</td>
+                <td><input type="hidden" th:field="*{id}"/></td>
+            </tr>
+
+            <tr>
+                <td>Song Name:</td>
+                <td>
+                    <input type="text" th:field="*{musicName}"/>
+                    <p style="color: red" th:errors="*{musicName}"
+                       th:if="${#fields.hasErrors('musicName')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Artist:</td>
+                <td><input type="text" th:field="*{artist}"/>
+                    <p style="color: red" th:errors="*{artist}"
+                       th:if="${#fields.hasErrors('artist')}"></p></td>
+            </tr>
+            <tr>
+                <td>Kinds Of:</td>
+                <td>
+                    <input type="text" th:field="*{kindOfMusic}"/>
+                    <p style="color: #45a049" th:errors="*{kindOfMusic}"
+                       th:if="${#fields.hasErrors('kindOfMusic')}"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Save"/></td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
