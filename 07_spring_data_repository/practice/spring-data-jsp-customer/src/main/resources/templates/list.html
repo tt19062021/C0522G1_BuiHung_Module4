@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
 
@@ -10,9 +10,9 @@
 
 <body>
 
-<h3 style="text-align: center" class="table-info">List Product</h3>
+<h3 style="text-align: center" class="table-info">List Customer</h3>
 
-<a class="btn btn-primary" th:href="@{/create}" role="button">Add new Product</a>
+<a class="btn btn-primary" th:href="@{/create}" role="button">Add new Customer</a>
 
 <h2  style="text-align: center;">
     <div >
@@ -29,7 +29,7 @@
     </div>
 </h2>
 
-<form action="/product" method="get">
+<form action="/search" method="get">
     <input type="search" name="name" placeholder="search name...">
     <button type="submit">Search</button>
 </form>
@@ -38,29 +38,34 @@
     <thead>
     <tr>
         <!--        <th scope="col">#</th>-->
-        <th scope="col" class="table-primary">Name</th>
-        <th scope="col" class="table-primary">Price</th>
-        <th scope="col" class="table-primary">Description</th>
-        <th scope="col" class="table-primary">Producer</th>
+        <th scope="col" class="table-primary">First Name</th>
+        <th scope="col" class="table-primary">Last Name</th>
+        <th scope="col" class="table-primary">Province</th>
+
         <th scope="col" class="table-primary">Update</th>
         <th scope="col" class="table-primary">View</th>
         <th scope="col" class="table-primary">Delete</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="pro : ${productList}" >
-        <!--        <td th:text="${pro.getId()}"></td>-->
-        <td th:text="${pro.name}" class="table-info"></td>
-        <td th:text="${pro.price}" class="table-info"></td>
-        <td th:text="${pro.description}" class="table-info"></td>
-        <td th:text="${pro.producer}" class="table-info"></td>
-        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/edit(id=${pro.id})}" role="button">Update</a></td>
-        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/view(id=${pro.id})}" role="button">View</a></td>
-        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/delete(id=${pro.id})}" role="button">Delete</a></td>
+    <tr th:each="cus : ${customerList}" >
+<!--                <td th:text="${cus.id}"></td>-->
+        <td th:text="${cus.firstName}" class="table-info"></td>
+        <td th:text="${cus.lastName}" class="table-info"></td>
+        <td th:if="${cus.province}" th:text="${cus.province.nameProvince}" class="table-info"></td>
+        <td th:unless="${cus.province}"></td>
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/edit(id=${cus.id})}" role="button">Update</a></td>
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/view(id=${cus.id})}" role="button">View</a></td>
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/delete(id=${cus.id})}" role="button">Delete</a></td>
     </tr>
     </tbody>
 </table>
 
+<div>
+    <a th:href="@{'/'(page=${customerList.number - 1})}" th:if="${customerList.hasPrevious()}">Previous</a>
+    <span th:text="${customerList.number + 1}"></span>/<span th:text="${customerList.totalPages}"></span>
+    <a th:href="@{'/'(page=${customerList.number + 1})}" th:if="${customerList.hasNext()}">Next</a>
+</div>
 </body>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

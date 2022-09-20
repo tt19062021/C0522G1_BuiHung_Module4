@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.model.Customer;
-
 import com.example.service.ICustomerService;
 import com.example.service.IProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class CustomerController {
     public String showCustomers(Model model){
         List<Customer> customerList = iCustomerService.findAll();
         model.addAttribute("customerList",customerList);
-        model.addAttribute("provinceList",iProvinceService.findAll());
+
         return "list";
     }
 
