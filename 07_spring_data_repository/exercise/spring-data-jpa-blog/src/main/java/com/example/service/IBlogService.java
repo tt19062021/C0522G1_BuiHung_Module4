@@ -1,4 +1,6 @@
 package com.example.service;
+
+import com.example.dto.BlogDto;
 import com.example.model.Blog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,7 +9,7 @@ import java.util.List;
 
 public interface IBlogService {
 
-    List<Blog> findByAll();
+    List<BlogDto> findByQuery();
 
     void save(Blog blog);
 
@@ -17,9 +19,8 @@ public interface IBlogService {
 
     void remove(int id);
 
+    Page<Blog> findTitleName(String name, Pageable pageable);
 
+    Page<Blog> findAllViewBlog(int id, Pageable pageable);
 
-   Page<Blog> findAllByTitle(String name,Pageable pageable);
-
-    Page<Blog> findAllViewBlog(int id,Pageable pageable);
 }

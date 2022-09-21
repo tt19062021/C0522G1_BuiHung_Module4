@@ -5,7 +5,7 @@
 
 <h3>Create New Blog</h3>
 
-<a class="btn btn-primary" th:href="@{/}" role="button">Back My BLOG</a>
+<a class="btn btn-primary" th:href="@{/blog}" role="button">Back My BLOG</a>
 <div id="form">
     <form th:action="@{/save}" th:object="${blogList}"
           method="POST" novalidate="novalidate">

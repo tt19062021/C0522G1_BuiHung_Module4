@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.dto.BlogDto;
 import com.example.model.Blog;
 import com.example.repository.IBlogRepository;
 import com.example.service.IBlogService;
@@ -18,9 +19,10 @@ public class BlogService implements IBlogService {
     @Autowired
     private IBlogRepository iBlogRepository;
 
+
     @Override
-    public List<Blog> findByAll() {
-        return iBlogRepository.findAll();
+    public List<BlogDto> findByQuery() {
+        return iBlogRepository.findByQuery();
     }
 
     @Override
@@ -44,13 +46,14 @@ public class BlogService implements IBlogService {
     }
 
 
-
     @Override
-    public Page<Blog> findAllByTitle(String name, Pageable pageable) {
-        return iBlogRepository.findAllByTitleContaining(name,pageable);
+    public Page<Blog> findTitleName(String name, Pageable pageable) {
+        return iBlogRepository.findTitleName(name, pageable);
     }
 
-    public Page<Blog> findAllViewBlog(int id,Pageable pageable){
-        return iBlogRepository.findAllViewBlog(id,pageable);
+    public Page<Blog> findAllViewBlog(int id, Pageable pageable) {
+        return iBlogRepository.findAllViewBlog(id, pageable);
     }
+
+
 }

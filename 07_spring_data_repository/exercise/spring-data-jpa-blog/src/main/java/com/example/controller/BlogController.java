@@ -1,9 +1,11 @@
 package com.example.controller;
 
+import com.example.dto.BlogDto;
 import com.example.model.Blog;
 import com.example.service.IBlogService;
 import com.example.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 
 @Controller
@@ -22,12 +26,12 @@ public class BlogController {
     @Autowired
     private ICategoryService iCategoryService;
 
-//    @GetMapping({"/blog","/"})
-//    public String showBlogList(Model model){
-//        List<Blog> blogList = iBlogService.findByAll();
-//        model.addAttribute("blogList",blogList);
-//        return "list";
-//    }
+    @GetMapping("/query")
+    public String showBlogList(Model model){
+        List<BlogDto> blogDtoList = iBlogService.findByQuery();
+        model.addAttribute("blogDtoList",blogDtoList);
+        return "/blog/list_query";
+    }
 
     @GetMapping("/create")
     public String create(Model model) {
@@ -38,7 +42,7 @@ public class BlogController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Blog blog) {
-//        blog.setId((int)(Math.random() * 200));
+
         iBlogService.save(blog);
         return "redirect:/blog";
     }
@@ -60,7 +64,7 @@ public class BlogController {
     @PostMapping("/update")
     public String update(Blog blog, RedirectAttributes redirectAttributes) {
         iBlogService.update(blog);
-        redirectAttributes.addFlashAttribute("messegerUpdate", "UPDATE SUCCESS!!");
+        redirectAttributes.addFlashAttribute("messUpdate", "UPDATE SUCCESS!!");
         return "redirect:/blog";
     }
 
@@ -74,18 +78,19 @@ public class BlogController {
     @PostMapping("/delete")
     public String delete(Blog blog, RedirectAttributes redirect) {
         iBlogService.remove(blog.getId());
-        redirect.addFlashAttribute("success", "Removed product successfully!");
+        redirect.addFlashAttribute("messDelete", "REMOVE SUCCESS!!");
         return "redirect:/blog";
     }
 
     @GetMapping("/blog")
-    public String search(@PageableDefault(value = 3, sort = "dateOfWriting",
-            direction = Sort.Direction.DESC) Pageable pageable,
-                         @RequestParam(value = "name", defaultValue = "") String name, Model model) {
-        model.addAttribute("blogList", iBlogService.findAllByTitle(name, pageable));
+    public String search(@RequestParam(defaultValue = "") String name,
+                         @PageableDefault(value = 5,sort = "date_of_writing", direction = Sort.Direction.DESC)
+                                 Pageable pageable,
+                         Model model) {
+        model.addAttribute("blogList", iBlogService.findTitleName(name, pageable));
+
         model.addAttribute("name", name);
         return "/blog/list";
     }
-
 
 }

@@ -4,7 +4,7 @@
 <body>
 <h3>Delete Blog</h3>
 
-<a class="btn btn-primary" th:href="@{/}" role="button">Back Blog</a>
+<a class="btn btn-primary" th:href="@{/blog}" role="button">Back Blog</a>
 <div id="form">
     <form th:action="@{/delete}" th:object="${blogList}"
           method="POST" novalidate="novalidate">

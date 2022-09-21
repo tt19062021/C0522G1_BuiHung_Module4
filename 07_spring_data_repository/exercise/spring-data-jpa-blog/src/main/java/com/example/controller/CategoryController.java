@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 
@@ -38,7 +39,6 @@ public class CategoryController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Category category) {
-//        blog.setId((int)(Math.random() * 200));
         iCategoryService.save(category);
         return "redirect:/category";
     }
@@ -52,7 +52,7 @@ public class CategoryController {
     @PostMapping("/update")
     public String update(@ModelAttribute Category category, RedirectAttributes redirectAttributes) {
         iCategoryService.update(category);
-        redirectAttributes.addFlashAttribute("mess", "Update successful!");
+        redirectAttributes.addFlashAttribute("messUpdate", "Update successful!");
         return "redirect:/category";
     }
 
@@ -65,12 +65,13 @@ public class CategoryController {
     @PostMapping("/delete")
     public String delete(Category category, RedirectAttributes redirectAttributes) {
         iCategoryService.remove(category.getId());
-        redirectAttributes.addFlashAttribute("mess", "Remove successful!");
+        redirectAttributes.addFlashAttribute("messDelete", "Remove successful!");
         return "redirect:/category";
     }
 
     @GetMapping("/view/{id}")
     public String view(@PageableDefault(value = 3) Pageable pageable, @PathVariable int id, Model model) {
+
         model.addAttribute("blogList", iBlogService.findAllViewBlog(id, pageable));
 
         return "/blog/list";
