@@ -1,0 +1,72 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+
+<body>
+
+<h2 style="text-align: center" class="table-info">Wellcom LIBRARY</h2>
+
+<a class="btn btn-primary" th:href="@{/check}" role="button">PAY BOOK</a>
+<!--<a class="btn btn-info" th:href="@{/category}" role="button">CATEGORY</a>-->
+<h2  style="text-align: center;">
+    <div >
+        <div th:if="${messUpdate}">
+            <span th:text="${messUpdate}"></span>
+        </div>
+    </div>
+</h2>
+<h2  style="text-align: center;">
+    <div >
+        <div th:if="${messPayFull}">
+            <span th:text="${messPayFull}"></span>
+        </div>
+    </div>
+</h2>
+<h2  style="text-align: center;">
+    <div >
+        <div th:if="${messPay}">
+            <span th:text="${messPay}"></span>
+        </div>
+    </div>
+</h2>
+
+<form action="/blog" method="get">
+    <input type="search" name="name" placeholder="search title...">
+    <button type="submit">Search</button>
+</form>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <!--        <th scope="col">#</th>-->
+        <th scope="col" class="table-primary">Name</th>
+        <th scope="col" class="table-primary">Category</th>
+        <th scope="col" class="table-primary">Amount</th>
+        <th scope="col" class="table-primary">Update</th>
+<!--        <th scope="col" class="table-primary">View</th>-->
+        <th scope="col" class="table-primary">Pay</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${bookPage}">
+
+        <td th:text="${book.nameBook}" class="table-info"></td>
+        <td th:text="${book.category}" class="table-info"></td>
+        <td th:text="${book.amount}" class="table-info"></td>
+
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/edit(id=${book.id})}" role="button">Borrow</a></td>
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/check(id=${book.id})}" role="button">Pay</a></td>
+<!--        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/view(id=${blog.id})}" role="button">View</a></td>-->
+
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{'/library'(page=${bookPage.number - 1})}" th:if="${bookPage.hasPrevious()}">Previous</a>
+    <span th:text="${bookPage.number + 1}"></span>/<span th:text="${bookPage.totalPages}"></span>
+    <a th:href="@{'/library'(page=${bookPage.number + 1})}" th:if="${bookPage.hasNext()}">Next</a>
+</div>
+</body>
+<footer th:replace="/layout :: footer"></footer>
+</html>
