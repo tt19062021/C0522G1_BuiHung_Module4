@@ -18,10 +18,12 @@ public class UserDto {
     @Pattern(regexp = "^09[0-9]{8}$",message = "10 so bat dau bang so 09")
     private String phoneNumber;
 
-    @Pattern(regexp = "^1[89]|[2-5]\\d|60$", message = "Tuoi >= 18")
+//    @Pattern(regexp = "^1[89]|[2-5]\\d|60$", message = "Tuoi >= 18")
+    @Min(value = 18,message ="Tuoi >= 18")
     private String age;
 
-    @Pattern(regexp = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$",message = "email khong hop le (ex:abc@gmail.com)!!")
+//    @Pattern(regexp = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$",message = "email khong hop le (ex:abc@gmail.com)!!")
+    @Email(message = "ex: abcd@gmail.com")
     private String email;
 
 
