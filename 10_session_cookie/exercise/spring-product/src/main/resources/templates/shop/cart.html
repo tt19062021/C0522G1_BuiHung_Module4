@@ -1,5 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Title</title>
     <!-- Required meta tags -->
@@ -11,28 +12,44 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<h3 style="text-align: center">Fragrant Perfume</h3>
+<h3 style="text-align: center">Your Cart</h3>
+<a class="btn btn-primary" th:href="@{/shop}" role="button">Your Chose</a>
 <table class="table table-dark">
     <thead>
     <tr>
-
-        <th scope="col">Name</th>
-        <th scope="col">Picture</th>
-        <th scope="col">Note</th>
-        <th scope="col">Price</th>
-
+        <th>Name</th>
+        <th>Picture</th>
+        <th>Price</th>
+        <th>Discount</th>
+        <th>Add</th>
+        <th>Drop</th>
     </tr>
     </thead>
     <tbody>
+    <tr th:each="productMap :${cart.productMap}">
+        <td th:text="${productMap.key.nameProduct}"></td>
+        <td >
+            <img th:src="${productMap.key.image}" width="auto" height="70px">
+        </td>
+        <td th:text="${productMap.key.price}"></td>
+        <td th:text="${productMap.value}"></td>
+        <td>
+            <a th:href="@{/shop/add/__${productMap.key.id}__}">+</a>
+        </td>
+        <td>
+            <a th:href="@{/shop/drop/__${productMap.key.id}__}">-</a>
+        </td>
+    </tr>
     <tr>
-    <td th:text="${product.nameProduct}"></td>
-    <td><img th:src="@{${product.image}}" height="70px" width="auto"></td>
-    <td th:text="${product.note}"></td>
-    <td th:text="${product.price}"></td>
+        <td><b>Tổng giá tiền:</b></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td th:text="${cart.countTotalPayment()}"></td>
+        <td></td>
     </tr>
     </tbody>
 </table>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

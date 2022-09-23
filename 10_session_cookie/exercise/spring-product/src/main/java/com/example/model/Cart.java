@@ -1,2 +1,4 @@
-package com.example.model;public class Cart {
+package com.example.model;
+
+public class Cart {
 }
