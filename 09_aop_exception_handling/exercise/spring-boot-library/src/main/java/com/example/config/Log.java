@@ -11,19 +11,30 @@ import java.time.LocalDateTime;
 public class Log {
 
     @Pointcut("execution(* com.example.controller.BookController.*(..))")
-    public void allMethodPointCut(){}
+    public void allBodyViewPage(){}
 
-    @Before("allMethodPointCut()")
-    public void beforeCallMethod(JoinPoint joinPoint){
+    @Before("allBodyViewPage()")
+    public void beforBodyViewPage(JoinPoint joinPoint){
+        System.out.println("METHOD NAME :" +
+                joinPoint.getSignature().getName() +
+                "Time" + LocalDateTime.now());
+    }
+
+
+    @Pointcut("execution(* com.example.controller.BookController.update*(..))")
+    public void allMethodUpdate(){}
+
+    @Before("allMethodUpdate()")
+    public void beforeMethodUpdate(JoinPoint joinPoint){
         System.out.println("START METHOD NAME: "+
-              joinPoint.getSignature().getName() +" Time: "+
+              joinPoint.getSignature().getName() +"Time Update Book: "+
                 LocalDateTime.now());
     }
 
-    @AfterReturning("allMethodPointCut()")
-    public void afterThrowingCallMethod(JoinPoint joinPoint){
+    @AfterReturning("allMethodUpdate()")
+    public void afterThrowingMethodUpdate(JoinPoint joinPoint){
         System.out.println("END METHOD NAME: "+
-                joinPoint.getSignature().getName() +" Time: "+
+                joinPoint.getSignature().getName() +"Time Update Book: "+
                 LocalDateTime.now());
     }
 }

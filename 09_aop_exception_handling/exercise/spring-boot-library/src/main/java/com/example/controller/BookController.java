@@ -37,7 +37,7 @@ public class BookController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes) {
+    public String updateBorrow(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes) {
         book.setAmount(book.getAmount() -1);
         iBookService.update(book);
 
@@ -53,7 +53,7 @@ public class BookController {
     }
 
     @PostMapping("/pay")
-    public String payBook(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes) {
+    public String updatePay(@ModelAttribute("book") Book book, RedirectAttributes redirectAttributes) {
         if(book.getAmount() == book.getSumBook()){
             redirectAttributes.addFlashAttribute("messPayFull", "Book Is FULL");
             return "redirect:/library";
