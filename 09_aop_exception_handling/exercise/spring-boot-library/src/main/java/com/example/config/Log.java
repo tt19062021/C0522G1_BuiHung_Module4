@@ -9,17 +9,19 @@ import java.time.LocalDateTime;
 @Component
 @Aspect
 public class Log {
+    private int count = 0;
 
     @Pointcut("execution(* com.example.controller.BookController.*(..))")
     public void allBodyViewPage(){}
 
-    @Before("allBodyViewPage()")
-    public void beforBodyViewPage(JoinPoint joinPoint){
+    @AfterReturning("allBodyViewPage()")
+    public void afterBodyViewPage(JoinPoint joinPoint){
+            count++;
         System.out.println("METHOD NAME :" +
                 joinPoint.getSignature().getName() +
-                "Time" + LocalDateTime.now());
+                "Time " + LocalDateTime.now() +
+                " Count Number View Page :" + count);
     }
-
 
     @Pointcut("execution(* com.example.controller.BookController.update*(..))")
     public void allMethodUpdate(){}
