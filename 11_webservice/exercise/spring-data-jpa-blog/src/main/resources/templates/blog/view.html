@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+
+<a class="btn btn-primary" th:href="@{/blog}" role="button">Back My Blog</a>
+<div id="detail">
+<!--    <div class="cusdetail">-->
+<!--        <label th:text="${blogList.id}"></label>-->
+<!--    </div>-->
+    <div class="cusdetail" style="text-align: center">
+        <b><label th:text="${blogList.title}"></label></b>
+    </div>
+    <div>
+        <span th:if="${blogList.category}" th:text="${blogList.category.categoryName}"></span>
+        <span th:unless="${blogList.category}">non</span><br>
+    </div>
+    <div class="cusdetail">
+        <label th:text="${blogList.content}"></label>
+    </div>
+    <div class="cusdetail">
+        <label th:text="${blogList.author}"></label>
+    </div>
+    <div class="cusdetail">
+        <label th:text="${blogList.dateOfWriting}"></label>
+    </div>
+
+</div>
+
+</body>
+</html>

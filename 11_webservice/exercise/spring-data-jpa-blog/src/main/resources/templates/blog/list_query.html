@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col" class="table-primary">#</th>
+        <th scope="col" class="table-primary">Title</th>
+        <th scope="col" class="table-primary">Category</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="blog,row : ${blogDtoList}">
+        <td th:text="${row.count}" class="table-info"></td>
+        <td th:text="${blog.getTitleDto()}" class="table-info"></td>
+        <td th:text="${blog.getCateDto()}" class="table-info"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
