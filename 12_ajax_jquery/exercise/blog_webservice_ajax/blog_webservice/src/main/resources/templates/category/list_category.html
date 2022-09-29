@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h2>Category list</h2>
+
+<a th:href="@{/category/create}">Add new</a><br>
+
+<p style="color: red" th:text="${messDelete}"></p>
+<p style="color: red" th:text="${messUpdate}"></p>
+
+<table class="table table-primary">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    <tr th:each="category, status : ${categoryList}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${category.categoryName}"></td>
+        <td><a th:href="@{/category/view/__${category.id}__}">view</a></td>
+        <td><a th:href="@{/category/edit/__${category.id}__}">edit</a></td>
+        <td><a th:href="@{/category/delete/__${category.id}__}">delete</a></td>
+    </tr>
+</table>
+
+</body>
+</html>
