@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -18,9 +19,8 @@ public class SmartPhoneController {
     private ISmartphoneService smartphoneService;
 
     @GetMapping
-    public ResponseEntity<List<Smartphone>> allPhones() {
-        List<Smartphone> smartphoneList = smartphoneService.findAll();
-            return new ResponseEntity<>(smartphoneList,HttpStatus.OK);
+    public ResponseEntity<Iterable<Smartphone>> allPhones() {
+            return new ResponseEntity<>(smartphoneService.findAll(),HttpStatus.OK);
     }
 
     @PostMapping
@@ -29,27 +29,15 @@ public class SmartPhoneController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Smartphone> findById(@PathVariable Long id) {
-        Smartphone smartphone = smartphoneService.findById(id);
-        if(smartphone == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else {
-            return new ResponseEntity<>(smartphone, HttpStatus.OK);
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Smartphone> updatePhone(@PathVariable Long id,
-                                                 @RequestBody Smartphone smartphone) {
-        Smartphone currentSmartphone = smartphoneService.findById(id);
-        if (currentSmartphone == null) {
+    public ResponseEntity<Optional<Smartphone>> findById(@PathVariable Long id) {
+        Optional<Smartphone> smartphoneOptional = smartphoneService.findById(id);
+        if (!smartphoneOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        currentSmartphone.setModel(smartphone.getModel());
-        currentSmartphone.setPrice(smartphone.getPrice());
-        currentSmartphone.setProducer(smartphone.getProducer());
+        smartphoneService.remove(id);
+        return new ResponseEntity<>(smartphoneOptional, HttpStatus.NO_CONTENT);
 
-        smartphoneService.save(currentSmartphone);
-        return new ResponseEntity<>(currentSmartphone, HttpStatus.OK);
     }
+
+
 }

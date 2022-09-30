@@ -62,8 +62,31 @@
 
 <script src="../../jquery-3.6.1.js"></script>
 <script>
+
+    function showList(){
+        $.ajax({
+            url: "http://localhost:8080/api/blog/v1",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                let tr = [];
+                for (let i = 0; i < data.length; i++) {
+                    tr.push("<tr>");
+                    tr.push("<td>" + data[i].id + "</td>");
+                    tr.push("<td>" + data[i].title + "</td>");
+                    tr.push("<td>" + data[i].content + "</td>");
+                    tr.push("<td>" + data[i].author + "</td>");
+                    tr.push("<td>" + data[i].dateOfWriting + "</td>");
+                    tr.push("<td>" + data[i].category.categoryName + "</td>");
+                    tr.push("</tr>");
+                }
+                $(".table").append(tr.join(""));
+            }
+        })
+    }
+
+
     $("document").ready(function () {
-        setTimeout(function () {
             $("tbody").empty();
             $.ajax({
                 url: "http://localhost:8080/api/blog/v1",
@@ -85,31 +108,12 @@
                     $(".table").append(tr.join(""));
                 }
             })
-        }, 2000)
+
     })
 
         $("#actionMore").click(function () {
             $("tbody").empty();
-            $.ajax({
-                url: "http://localhost:8080/api/blog/v1",
-                type: "GET",
-                dataType: "json",
-                success: function (data) {
-                    let tr = [];
-
-                    for (let i = 0; i < data.length; i++) {
-                        tr.push("<tr>");
-                        tr.push("<td>" + data[i].id + "</td>");
-                        tr.push("<td>" + data[i].title + "</td>");
-                        tr.push("<td>" + data[i].content + "</td>");
-                        tr.push("<td>" + data[i].author + "</td>");
-                        tr.push("<td>" + data[i].dateOfWriting + "</td>");
-                        tr.push("<td>" + data[i].category.categoryName + "</td>");
-                        tr.push("</tr>");
-                    }
-                    $(".table").append(tr.join(""));
-                }
-            })
+            showList();
         })
 
 

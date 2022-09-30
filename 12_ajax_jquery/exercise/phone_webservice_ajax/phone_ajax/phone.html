@@ -23,16 +23,16 @@
 <h2> Smart Phone List</h2>
 <table class="table">
     <tr style="background-color: forestgreen">
-        <thead>
         <th>#</th>
         <th>Tên điện thoại</th>
         <th>Giá tiền</th>
         <th>Hãng sản xuất</th>
         <th>Action</th>
-        </thead>
-        <tbody>
+    </tr>
+    <tr>
 
-        </tbody>
+        <td></td>
+
     </tr>
 </table>
 <br>
@@ -101,7 +101,7 @@
             price: price
         }
 
-         $(".table tbody").empty();
+        $(".table tbody").empty();
         $.ajax({
             headers: {
                 'Accept': 'application/json',
