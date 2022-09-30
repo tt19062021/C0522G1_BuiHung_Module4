@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+<h2 style="text-align: center" class="table-info">Wellcom My Blog</h2>
+
+<a class="btn btn-primary" th:href="@{/create}" role="button">CREATE NEW BLOG</a>
+<a class="btn btn-info" th:href="@{/category}" role="button">CATEGORY</a>
+<h2  style="text-align: center;">
+    <div >
+        <div th:if="${messUpdate}">
+            <span th:text="${messUpdate}"></span>
+        </div>
+    </div>
+</h2>
+<h2  style="text-align: center;">
+    <div >
+        <div th:if="${messDelete}">
+            <span th:text="${messDelete}"></span>
+        </div>
+    </div>
+</h2>
+
+<form action="/blog" method="get">
+    <input type="search" name="name" placeholder="search title...">
+    <button type="submit">Search</button>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <!--        <th scope="col">#</th>-->
+        <th scope="col" class="table-primary">Title</th>
+        <th scope="col" class="table-primary">Content</th>
+        <th scope="col" class="table-primary">Author</th>
+        <th scope="col" class="table-primary">Date Write</th>
+        <th scope="col" class="table-primary">Category</th>
+        <th scope="col" class="table-primary">Update</th>
+<!--        <th scope="col" class="table-primary">View</th>-->
+        <th scope="col" class="table-primary">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="blog : ${blogList}">
+        <!--        <td th:text="${pro.getId()}"></td>-->
+        <td th:text="${blog.title}" class="table-info"></td>
+        <td class="table-info">>
+            <a th:href="@{/{id}/view(id=${blog.id})}" role="button">Xem Tin.....</a>
+        </td>
+        <td th:text="${blog.author}" class="table-info"></td>
+        <td th:text="${blog.dateOfWriting}" class="table-info"></td>
+        <td  th:if="${blog.category}" th:text="${blog.category.categoryName}" class="table-info"></td>
+        <td  th:unless="${blog.category}"  class="table-info"></td>
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/edit(id=${blog.id})}" role="button">Update</a></td>
+<!--        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/view(id=${blog.id})}" Role="button">View</a></td>-->
+        <td class="table-info"><a class="btn btn-danger" th:href="@{/{id}/delete(id=${blog.id})}" role="button">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{'/blog'(page=${blogList.number - 1}, search=${name})}" th:if="${blogList.hasPrevious()}">Previous</a>
+    <span th:text="${blogList.number + 1}"></span>/<span th:text="${blogList.totalPages}"></span>
+    <a th:href="@{'/blog'(page=${blogList.number + 1}, search=${name})}" th:if="${blogList.hasNext()}">Next</a>
+</div>
+
+</body>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</html>
