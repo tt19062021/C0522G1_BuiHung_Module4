@@ -3,147 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+
 
 </head>
 <body>
+<h1>Blog list</h1>
 
-<h2 style="text-align: center">My BLOG</h2>
+<input type="search" name="search" placeholder="search name..." id="search">
+<button id="clickSearch" type="submit" class="btn btn-dark">Search</button>
+<button id="more" type="submit" class="btn btn-dark">More</button>
 
-<input placeholder="search..." name="search" type="search" id="nameSearch">
-<button class="btn btn-info" id="clickSearch" value="search">Search</button>
-
-<table class="table">
+<table class="table" >
     <thead>
     <tr>
-        <!--        <th scope="col">#</th>-->
-        <th scope="col" class="table-primary">Id</th>
-        <th scope="col" class="table-primary">Title</th>
-        <th scope="col" class="table-primary">Content</th>
-        <th scope="col" class="table-primary">Author</th>
-        <th scope="col" class="table-primary">Date Write</th>
-        <th scope="col" class="table-primary">Category</th>
-        <!--        <th scope="col" class="table-primary">Update</th>-->
-        <!--        &lt;!&ndash;        <th scope="col" class="table-primary">View</th>&ndash;&gt;-->
-        <!--        <th scope="col" class="table-primary">Delete</th>-->
+        <th>ID</th>
+        <th>Tittle</th>
+        <th>Body</th>
+        <th>Author</th>
+        <th>Date Writing</th>
+        <th>Category</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td>
-
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-
+        <td >
+            <span>Loading...</span>
         </td>
+
     </tr>
+
     </tbody>
 </table>
 
-<button type="button" class="btn btn-primary btn-mg btn-block" id="actionMore">More</button>
+
 </body>
-
-<script src="../../jquery-3.6.1.js"></script>
+<script src="../../../../jquery-3.6.1.js"></script>
 <script>
-
-    function showList(){
+    function display(searchName, more) {
+        $("tbody").empty();
         $.ajax({
             url: "http://localhost:8080/api/blog/v1",
             type: "GET",
             dataType: "json",
             success: function (data) {
                 let tr = [];
-                for (let i = 0; i < data.length; i++) {
+                let discount = 3 * more;
+                if (discount > data.length) {
+                    discount = data.length;
+                }
+                for (let i = 0; i < discount; i++) {
                     tr.push("<tr>");
-                    tr.push("<td>" + data[i].id + "</td>");
-                    tr.push("<td>" + data[i].title + "</td>");
-                    tr.push("<td>" + data[i].content + "</td>");
-                    tr.push("<td>" + data[i].author + "</td>");
-                    tr.push("<td>" + data[i].dateOfWriting + "</td>");
-                    tr.push("<td>" + data[i].category.categoryName + "</td>");
+                    tr.push("<td>" + data[i].id + "</td>")
+                    tr.push("<td>" + data[i].title + "</td>")
+                    tr.push("<td>" + data[i].content + "</td>")
+                    tr.push("<td>" + data[i].author + "</td>")
+                    tr.push("<td>" + data[i].dateOfWriting + "</td>")
+                    tr.push("<td>" + data[i].category.catogeryName + "</td>")
                     tr.push("</tr>");
                 }
                 $(".table").append(tr.join(""));
             }
         })
+
     }
 
+    $(document).ready(function () {
+        let nameSearch = "";
+        let more = 1;
+        display(nameSearch, more);
 
-    $("document").ready(function () {
-            $("tbody").empty();
-            $.ajax({
-                url: "http://localhost:8080/api/blog/v1",
-                type: "GET",
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    let tr = [];
-                    for (let i = 0; i < 2; i++) {
-                        tr.push("<tr>");
-                        tr.push("<td>" + data[i].id + "</td>");
-                        tr.push("<td>" + data[i].title + "</td>");
-                        tr.push("<td>" + data[i].content + "</td>");
-                        tr.push("<td>" + data[i].author + "</td>");
-                        tr.push("<td>" + data[i].dateOfWriting + "</td>");
-                        tr.push("<td>" + data[i].category.categoryName + "</td>");
-                        tr.push("</tr>");
-                    }
-                    $(".table").append(tr.join(""));
-                }
-            })
-
-    })
-
-        $("#actionMore").click(function () {
-            $("tbody").empty();
-            showList();
+        $("#more").click(function () {
+            more++;
+            display(nameSearch, more);
         })
 
-
-    $("#clickSearch").click(function () {
-
-        let value = $("#nameSearch").val();
-        $("tbody").empty();
-        $.ajax({
-            url: "http://localhost:8080/api/blog/v1/search?name=" + value,
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                let tr = [];
-
-                for (let i = 0; i < data.length; i++) {
-                    tr.push("<tr>");
-                    tr.push("<td>" + data[i].id + "</td>");
-                    tr.push("<td>" + data[i].title + "</td>");
-                    tr.push("<td>" + data[i].content + "</td>");
-                    tr.push("<td>" + data[i].author + "</td>");
-                    tr.push("<td>" + data[i].dateOfWriting + "</td>");
-                    tr.push("<td>" + data[i].category.categoryName + "</td>");
-                    tr.push("</tr>");
-                }
-                $(".table").append(tr.join(""));
-            }
+        $("#clickSearch").click(function () {
+            nameSearch = $("#search").val();
+            display(nameSearch, more);
         })
     })
-
 </script>
-
 </html>
