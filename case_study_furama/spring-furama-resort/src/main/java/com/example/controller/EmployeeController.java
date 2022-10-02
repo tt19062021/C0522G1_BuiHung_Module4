@@ -38,7 +38,7 @@ public class EmployeeController {
     public String showEmployeeSearch(@RequestParam(value = "name",defaultValue = "") String name,
                                      @RequestParam(value = "phone",defaultValue = "")String phone,
                                      @RequestParam(value = "idCard",defaultValue = "")String idCard,
-                                     @PageableDefault(value = 3)Pageable pageable, Model model){
+                                     @PageableDefault(value = 5)Pageable pageable, Model model){
         model.addAttribute("employees",iEmployeeService.findByName(name,phone,idCard,pageable));
         model.addAttribute("name",name);
         model.addAttribute("phone",phone);
@@ -57,18 +57,18 @@ public class EmployeeController {
     @PostMapping("/save")
     public String save(@ModelAttribute @Validated EmployeeDto employeeDto, BindingResult bindingResult, RedirectAttributes redirectAttributes,Model model) {
 
-        if (bindingResult.hasFieldErrors()) {
-            model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
-            model.addAttribute("positions", iPositionService.findAll());
-            model.addAttribute("divisions", iDivisionService.findAll());
-            return "employee/create";
-        } else {
+//        if (bindingResult.hasFieldErrors()) {
+//            model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
+//            model.addAttribute("positions", iPositionService.findAll());
+//            model.addAttribute("divisions", iDivisionService.findAll());
+//            return "employee/list";
+//        } else {
             Employee employee = new Employee();
             BeanUtils.copyProperties(employeeDto, employee);
             iEmployeeService.save(employee);
-            redirectAttributes.addFlashAttribute("masseNew", "successfully added new !!");
+            redirectAttributes.addFlashAttribute("messCreate", "Create Success !!");
             return "redirect:/employee";
-        }
+
     }
 
     @GetMapping("/update/{id}")
@@ -77,13 +77,13 @@ public class EmployeeController {
         model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
         model.addAttribute("positions", iPositionService.findAll());
         model.addAttribute("divisions", iDivisionService.findAll());
-        return "employee/update";
+        return "employee/edit";
     }
 
     @PostMapping("/update")
     public String update(Employee employee, RedirectAttributes redirectAttributes) {
         iEmployeeService.update(employee);
-        redirectAttributes.addFlashAttribute("messa", "edit successfully!");
+        redirectAttributes.addFlashAttribute("messUpdate", "Update Success!");
         return "redirect:/employee";
     }
 
@@ -99,7 +99,7 @@ public class EmployeeController {
     @PostMapping("/delete")
     public String delete(@RequestParam(value = "idDelete")int id, RedirectAttributes redirect) {
         iEmployeeService.remove(id);
-        redirect.addFlashAttribute("success", "Removed Employee successfully!");
+        redirect.addFlashAttribute("messDelete", "Delete Success!");
         return "redirect:/employee";
     }
 }

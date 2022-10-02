@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/layout :: head"></head>
+<body>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create New Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/employee/save}" th:object="${employeeDto}"
+                      method="POST" novalidate="novalidate">
+                    <div class="mb-3">
+                        <label  class="col-form-label">Name:</label>
+                        <input type="text" class="form-control"  th:field="*{nameEmployee}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">BirthDay:</label>
+                        <input type="date" class="form-control"  th:field="*{dateOfBirth}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Card:</label>
+                        <input type="text" class="form-control"  th:field="*{idCard}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Phone:</label>
+                        <input type="text" class="form-control"  th:field="*{phoneNumber}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Email:</label>
+                        <input type="text" class="form-control"  th:field="*{email}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Salary:</label>
+                        <input type="text" class="form-control"  th:field="*{salary}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Address:</label>
+                        <input type="text" class="form-control"  th:field="*{address}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Education:</label>
+                        <select th:field="*{educationDegree}" class="form-control">
+                            <option th:each="edu : ${educationDegrees}" th:value="${edu.id}" th:text="${edu.name}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Position:</label>
+                        <select th:field="*{position}" class="form-control">
+                            <option th:each="pos : ${positions}" th:value="${pos.id}" th:text="${pos.name}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Divition:</label>
+                        <select th:field="*{division}" class="form-control">
+                            <option th:each="divi : ${divisions}" th:value="${divi.id}" th:text="${divi.name}"></option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:href="@{/employee}">Close</button>
+                <button type="submit" class="btn btn-primary" value="Save">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

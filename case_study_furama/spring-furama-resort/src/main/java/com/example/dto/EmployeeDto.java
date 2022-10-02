@@ -1,45 +1,46 @@
 package com.example.dto;
 
 
+import com.example.model.Contract;
 import com.example.model.Division;
 import com.example.model.EducationDegree;
 import com.example.model.Position;
 
+import java.util.Set;
+
 public class EmployeeDto {
     private int id;
-    private String employeeName;
-    private String birthday;
+    private String nameEmployee;
+    private String dateOfBirth;
     private String idCard;
-    private String phone;
+    private String phoneNumber;
     private String email;
-    private double salary;
+    private String salary;
+    private String address;
     private EducationDegree educationDegree;
     private Position position;
     private Division division;
+    private Set<Contract> contractSet;
+
     public EmployeeDto() {
     }
 
-
-    public EmployeeDto(int id, String employeeName, String birthday, String idCard, String phone, String email,
-                       double salary, EducationDegree educationDegree, Position position, Division division) {
+    public EmployeeDto(int id, String nameEmployee, String dateOfBirth,
+                       String idCard, String phoneNumber, String email,
+                       String salary, String address, EducationDegree educationDegree, Position position,
+                       Division division, Set<Contract> contractSet) {
         this.id = id;
-        this.employeeName = employeeName;
-        this.birthday = birthday;
+        this.nameEmployee = nameEmployee;
+        this.dateOfBirth = dateOfBirth;
         this.idCard = idCard;
-        this.phone = phone;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.salary = salary;
+        this.address = address;
         this.educationDegree = educationDegree;
         this.position = position;
         this.division = division;
-    }
-
-    public Division getDivision() {
-        return division;
-    }
-
-    public void setDivision(Division division) {
-        this.division = division;
+        this.contractSet = contractSet;
     }
 
     public int getId() {
@@ -50,20 +51,20 @@ public class EmployeeDto {
         this.id = id;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    public String getNameEmployee() {
+        return nameEmployee;
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+    public void setNameEmployee(String nameEmployee) {
+        this.nameEmployee = nameEmployee;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getIdCard() {
@@ -74,12 +75,12 @@ public class EmployeeDto {
         this.idCard = idCard;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -90,12 +91,20 @@ public class EmployeeDto {
         this.email = email;
     }
 
-    public double getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public EducationDegree getEducationDegree() {
@@ -112,5 +121,21 @@ public class EmployeeDto {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
+    }
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
     }
 }

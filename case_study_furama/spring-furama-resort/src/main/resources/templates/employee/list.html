@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/layout :: head">
+
+</head>
+<body>
+
+<h3 style="text-align: center; color: blue">EMPLOYEE</h3>
+<h4 style="text-align: center;">
+    <div><div style="color: #4CAF50" th:if="${messCreate}"><span th:text="${messCreate}"></span></div></div>
+    <div><div style="color: #4CAF50" th:if="${messUpdate}"><span th:text="${messUpdate}"></span></div></div>
+    <div><div style="color: #4CAF50" th:if="${messDelete}"><span th:text="${messDelete}"></span></div></div>
+</h4>
+
+<!--<a class="btn btn-primary" th:href="@{/employee/create}" role="button">CREATE NEW EMPLOYEE</a>-->
+<!--Modal create-->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:href="@{/employee/create}" >CREATE NEW EMPLOYEE</button>
+
+
+
+
+<form class="d-flex my-2" role="search" style="margin-left: auto" action="" method="get">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
+    <button class="btn btn-outline-success" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>Search</button>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <!--        <th scope="col">#</th>-->
+        <th scope="col" class="table-primary">Name</th>
+        <th scope="col" class="table-primary">BirthDay</th>
+        <th scope="col" class="table-primary">Card</th>
+        <th scope="col" class="table-primary">Phone</th>
+        <th scope="col" class="table-primary">Email</th>
+        <th scope="col" class="table-primary">Education</th>
+        <th scope="col" class="table-primary">Position</th>
+        <th scope="col" class="table-primary">Division</th>
+
+        <th scope="col" class="table-primary">Update</th>
+        <th scope="col" class="table-primary">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="emp : ${employees}">
+        <td th:text="${emp.nameEmployee}" class="table-info"></td>
+        <td th:text="${emp.dateOfBirth}" class="table-info"></td>
+        <td th:text="${emp.idCard}" class="table-info"></td>
+        <td th:text="${emp.phoneNumber}" class="table-info"></td>
+        <td th:text="${emp.email}" class="table-info"></td>
+        <td th:text="${emp.educationDegree.name}" class="table-info"></td>
+        <td th:text="${emp.position.name}" class="table-info"></td>
+        <td th:text="${emp.division.name}" class="table-info"></td>
+
+        <td class="table-info"><a
+                th:href="@{/employee/edit/{id}(id=${emp.id})}" role="button"><i class="bi bi-trash3-fill">Edit</i></a></td>
+        <td class="table-info">
+            <!--            <a class="btn btn-danger"-->
+            <!--                                  th:href="@{/facility/delete/{id}(id=${fac.id})}" role="button">Delete</a>-->
+
+            <button th:attr="onclick=|customerDelete('${emp.id}', '${emp.nameEmployee}')|"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteCustomer">
+                <i class="bi bi-trash3-fill">d</i>
+            </button>
+        </td>
+        <!--        <td class="table-info">>-->
+        <!--            <a th:href="@{/{id}/view(id=${blog.id})}" role="button">Xem Tin.....</a>-->
+        <!--        </td>-->
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{'/employee'(page=${employees.number - 1})}" th:if="${employees.hasPrevious()}">Previous</a>
+    <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
+    <a th:href="@{'/employee'(page=${employees.number + 1})}" th:if="${employees.hasNext()}">Next</a>
+</div>
+
+</body>
+<footer th:replace="/home/layout :: footer"></footer>
+
+<div class="modal fade" id="deleteCustomer" tabindex="-1" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Bạn có chắc chắn muốn xóa?</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form th:action="@{/customer/delete}" method="GET">
+                <div class="modal-body">
+                    <span class="h6">facility:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
+                    <input type="hidden" name="idDelete" id="idDelete" readonly/>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-danger" value="delete">Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function customerDelete(id, name) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").innerText = name;
+        debugger
+    }
+</script>
+</html>
