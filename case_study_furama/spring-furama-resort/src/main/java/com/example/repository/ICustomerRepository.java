@@ -19,6 +19,6 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "update customer set is_delete= 1 where id = :keywordId", nativeQuery = true)
     void deleteById(@Param("keywordId") int id);
 
-    @Query(value = "select * from customer where customer_name like %:keyword1% and phone like %:keyword2% and address like %:keyword3% and is_delete=0", nativeQuery = true)
+    @Query(value = "select * from customer where `name` like %:keyword1% and phone like %:keyword2% and address like %:keyword3% and is_delete=0", nativeQuery = true)
     Page<Customer> searchByName(@Param("keyword1") String name, @Param("keyword2") String phone, @Param("keyword3") String address, Pageable pageable);
 }

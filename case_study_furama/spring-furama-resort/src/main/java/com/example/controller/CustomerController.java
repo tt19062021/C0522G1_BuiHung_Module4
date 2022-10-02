@@ -2,7 +2,9 @@ package com.example.controller;
 
 
 import com.example.dto.CustomerDto;
+import com.example.dto.FacilityDto;
 import com.example.model.Customer;
+import com.example.model.Facility;
 import com.example.service.ICustomerService;
 import com.example.service.ICustomerTypeService;
 import org.springframework.beans.BeanUtils;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
-
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
@@ -29,13 +30,13 @@ public class CustomerController {
     private ICustomerTypeService iCustomerTypeService;
 
     @GetMapping("")
-        public String search(@RequestParam(value = "name" , defaultValue = "") String name,
-                         @RequestParam(value = "phone" , defaultValue = "") String phone,
-                         @RequestParam(value = "address" , defaultValue = "") String address,
-                         @PageableDefault(value = 3) Pageable pageable, Model model) {
-        model.addAttribute("customers", iCustomerService.findByName(name,phone,address, pageable));
+    public String search(@RequestParam(value = "name", defaultValue = "") String name,
+                         @RequestParam(value = "phone", defaultValue = "") String phone,
+                         @RequestParam(value = "address", defaultValue = "") String address,
+                         @PageableDefault(value = 5) Pageable pageable, Model model) {
+        model.addAttribute("customers", iCustomerService.findByName(name, phone, address, pageable));
         model.addAttribute("name", name);
-        model.addAttribute("phone", name);
+        model.addAttribute("phone", phone);
         model.addAttribute("address", address);
         return "customer/list";
     }
@@ -48,30 +49,39 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult, RedirectAttributes redirectAttributes,Model model) {
+    public String save(@ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
-        if (bindingResult.hasFieldErrors()) {
-            model.addAttribute("customerTypes", iCustomerTypeService.findAll());
-            return "customer/create";
-        } else {
+//        if (bindingResult.hasFieldErrors()) {
+//            model.addAttribute("customerTypes", iCustomerTypeService.findAll());
+//            return "customer/create";
+//        } else {
             Customer customer = new Customer();
             BeanUtils.copyProperties(customerDto, customer);
             iCustomerService.save(customer);
-            redirectAttributes.addFlashAttribute("masseNew", "successfully added new !!");
+            redirectAttributes.addFlashAttribute("messCreate", "Create Success!!");
             return "redirect:/customer";
-        }
+
     }
+
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        model.addAttribute("customers", iCustomerService.findById(id));
+
+        Customer customers = iCustomerService.findById(id);
+        CustomerDto customerDto = new CustomerDto();
+        BeanUtils.copyProperties(customers, customerDto);
+
+        model.addAttribute("customerDto", customerDto);
         model.addAttribute("customerTypes", iCustomerTypeService.findAll());
         return "customer/edit";
     }
 
     @PostMapping("/update")
-    public String update(Customer customer, RedirectAttributes redirectAttributes) {
+    public String update(CustomerDto customerDto, RedirectAttributes redirectAttributes) {
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(customerDto, customer);
+
         iCustomerService.update(customer);
-        redirectAttributes.addFlashAttribute("messa", "edit successfully!");
+        redirectAttributes.addFlashAttribute("messUpdate", "Update Success!");
         return "redirect:/customer";
     }
 
@@ -83,9 +93,10 @@ public class CustomerController {
 //    }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam(value = "idDelete")int id, RedirectAttributes redirect) {
+    public String delete(@RequestParam(value = "idDelete") int id, RedirectAttributes redirect) {
         iCustomerService.remove(id);
-        redirect.addFlashAttribute("success", "Removed customer successfully!");
+        redirect.addFlashAttribute("messDelete", "Delete " +
+                              iCustomerService.findById(id).getName() + " Success !!");
         return "redirect:/customer";
     }
 

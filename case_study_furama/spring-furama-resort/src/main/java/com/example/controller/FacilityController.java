@@ -95,8 +95,8 @@ public class FacilityController {
     @GetMapping("/delete")
     public String delete(@RequestParam(value = "idDelete") int id, RedirectAttributes redirectAttributes) {
         iFacilityService.remove(id);
-        redirectAttributes.addFlashAttribute("message", "Xóa dịch vụ  [" +
-                iFacilityService.findById(id).getName() + "]  thành công.");
+        redirectAttributes.addFlashAttribute("messDelete", "Delete[" +
+                iFacilityService.findById(id).getName() + "]  Success !!");
         return "redirect:/facility";
     }
 

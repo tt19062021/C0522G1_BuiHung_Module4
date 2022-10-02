@@ -1,11 +1,13 @@
 package com.example.dto;
 
 
+import com.example.model.Contract;
 import com.example.model.CustomerType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 
 public class CustomerDto {
@@ -16,9 +18,9 @@ public class CustomerDto {
     @Size(min=5,max = 100,message = "Trường Tên được giới hạn từ 5 - 100 kí tự")
     @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$",
             message = "Tên phải đúng định dạng mỗi chữ cái đầu phải viết in hoa")
-    private String customerName;
-    private String birthday;
-    private int gender;
+    private String name;
+    private String dateOfBirth;
+    private String gender;
 
     @Pattern(regexp = "\\d{10}",message = "CMND phải đúng định dạng 10 số")
     private String idCard;
@@ -30,21 +32,24 @@ public class CustomerDto {
     private String email;
     private String address;
     private CustomerType customerType;
+    private Set<Contract> contractSet;
 
     public CustomerDto() {
     }
 
-    public CustomerDto(int id, String customerName, String birthday, int gender, String idCard, String phone,
-                       String email, String address, CustomerType customerType) {
+    public CustomerDto(int id, String name, String dateOfBirth, String gender,
+                       String idCard, String phone, String email, String address,
+                       CustomerType customerType, Set<Contract> contractSet) {
         this.id = id;
-        this.customerName = customerName;
-        this.birthday = birthday;
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.idCard = idCard;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.customerType = customerType;
+        this.contractSet = contractSet;
     }
 
     public int getId() {
@@ -55,27 +60,27 @@ public class CustomerDto {
         this.id = id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -117,5 +122,13 @@ public class CustomerDto {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
     }
 }

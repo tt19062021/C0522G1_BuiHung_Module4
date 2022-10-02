@@ -9,12 +9,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String gender;
+    private boolean gender;
     private String dateOfBirth;
     private String idCard;
     private String phone;
     private String email;
     private String address;
+    private boolean isDelete;
 
     @ManyToOne
     @JoinColumn(name="customerType_id",referencedColumnName = "id")
@@ -26,8 +27,10 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int id, String name, String gender, String dateOfBirth, String idCard, String phone,
-                    String email, String address, CustomerType customerType) {
+    public Customer(int id, String name, boolean gender, String dateOfBirth,
+                    String idCard, String phone, String email, String address,
+                    boolean isDelete,
+                    CustomerType customerType, Set<Contract> contractSet) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -36,7 +39,9 @@ public class Customer {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.isDelete = isDelete;
         this.customerType = customerType;
+        this.contractSet = contractSet;
     }
 
     public int getId() {
@@ -55,11 +60,11 @@ public class Customer {
         this.name = name;
     }
 
-    public String getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
@@ -103,11 +108,27 @@ public class Customer {
         this.address = address;
     }
 
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
+
     public CustomerType getCustomerType() {
         return customerType;
     }
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
     }
 }

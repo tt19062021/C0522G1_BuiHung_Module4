@@ -7,24 +7,16 @@
 
 <h3 style="text-align: center; color: blue">Facility List</h3>
 <h4 style="text-align: center;">
-    <div >
-        <div style="color: #4CAF50" th:if="${messCreate}">
-            <span th:text="${messCreate}"></span>
-        </div>
-    </div>
+    <div><div style="color: #4CAF50" th:if="${messCreate}"><span th:text="${messCreate}"></span></div></div>
+    <div><div style="color: #4CAF50" th:if="${messUpdate}"><span th:text="${messUpdate}"></span></div></div>
+    <div><div style="color: #4CAF50" th:if="${messDelete}"><span th:text="${messDelete}"></span></div></div>
 </h4>
-<h4 style="text-align: center;">
-    <div >
-        <div style="color: #4CAF50" th:if="${messUpdate}">
-            <span th:text="${messUpdate}"></span>
-        </div>
-    </div>
-</h4>
+
 
 <a class="btn btn-primary" th:href="@{/facility/create}" role="button">CREATE NEW FACILITY</a>
 
 <form class="d-flex my-2" role="search" style="margin-left: auto" action="" method="get">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name" >
     <button class="btn btn-outline-success" type="submit">
         <i class="fa-solid fa-magnifying-glass"></i>Search</button>
 </form>
@@ -85,7 +77,7 @@
 </body>
 <footer th:replace="/home/layout :: footer"></footer>
 
-<div class="modal fade" id="deleteCustomer" tabindex="-1" aria-labelledby="exampleModalLabel1"
+<div class="modal fade" id="facilityModal" tabindex="-1" aria-labelledby="exampleModalLabel1"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -110,7 +102,7 @@
 </div>
 
 <script>
-    function customerDelete(id, name) {
+    function facilityModal(id, name) {
         document.getElementById("idDelete").value = id;
         document.getElementById("nameDelete").innerText = name;
         debugger
