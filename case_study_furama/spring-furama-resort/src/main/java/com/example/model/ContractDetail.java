@@ -1,27 +1,28 @@
-package com.example.furama_system.model;
+package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class ContractDetail {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @ManyToOne
     @JoinColumn(name = "contract_id",referencedColumnName = "id")
     private Contract contract;
+
     @ManyToOne
     @JoinColumn(name = "attach_facility_id",referencedColumnName = "id")
     private AttachFacility attachFacility;
-    private int quantity;
+
+    private String quantity;
     private String isDelete;
 
     public ContractDetail() {
     }
 
-    public ContractDetail(int id, Contract contract, AttachFacility attachFacility, int quantity, String isDelete) {
+    public ContractDetail(int id, Contract contract, AttachFacility attachFacility, String quantity, String isDelete) {
         this.id = id;
         this.contract = contract;
         this.attachFacility = attachFacility;
@@ -53,11 +54,11 @@ public class ContractDetail {
         this.attachFacility = attachFacility;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 

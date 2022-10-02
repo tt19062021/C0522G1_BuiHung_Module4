@@ -1,10 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/layout :: head">
+
 </head>
 <body>
-$END$
+
+<h3 style="text-align: center; color: blue">Facility List</h3>
+<h4 style="text-align: center;">
+    <div >
+        <div style="color: #4CAF50" th:if="${messCreate}">
+            <span th:text="${messCreate}"></span>
+        </div>
+    </div>
+</h4>
+<h4 style="text-align: center;">
+    <div >
+        <div style="color: #4CAF50" th:if="${messUpdate}">
+            <span th:text="${messUpdate}"></span>
+        </div>
+    </div>
+</h4>
+
+<a class="btn btn-primary" th:href="@{/facility/create}" role="button">CREATE NEW FACILITY</a>
+
+<form class="d-flex my-2" role="search" style="margin-left: auto" action="" method="get">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
+    <button class="btn btn-outline-success" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>Search</button>
+</form>
+
+<table class="table">
+    <thead>
+    <tr>
+        <!--        <th scope="col">#</th>-->
+        <th scope="col" class="table-primary">Name</th>
+        <th scope="col" class="table-primary">Area</th>
+        <th scope="col" class="table-primary">Cost</th>
+        <th scope="col" class="table-primary">Max People</th>
+        <th scope="col" class="table-primary">RentType</th>
+        <th scope="col" class="table-primary">FacilityType</th>
+        <th scope="col" class="table-primary">Pool Area</th>
+        <th scope="col" class="table-primary">Floors</th>
+        <th scope="col" class="table-primary">Service Free</th>
+        <th scope="col" class="table-primary">Update</th>
+        <th scope="col" class="table-primary">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="fac : ${facilityPage}">
+        <td th:text="${fac.name}" class="table-info"></td>
+        <td th:text="${fac.area}" class="table-info"></td>
+        <td th:text="${fac.cost}" class="table-info"></td>
+        <td th:text="${fac.maxPeople}" class="table-info"></td>
+        <td th:text="${fac.rentType.name}" class="table-info"></td>
+        <td th:text="${fac.facilityType.name}" class="table-info"></td>
+        <td th:text="${fac.poolArea}" class="table-info"></td>
+        <td th:text="${fac.numberOfFloors}" class="table-info"></td>
+        <td th:text="${fac.facilityFree}" class="table-info"></td>
+        <td class="table-info"><a
+                                  th:href="@{/facility/edit/{id}(id=${fac.id})}" role="button"><i class="bi bi-trash3-fill">Edit</i></a></td>
+        <td class="table-info">
+<!--            <a class="btn btn-danger"-->
+<!--                                  th:href="@{/facility/delete/{id}(id=${fac.id})}" role="button">Delete</a>-->
+
+            <button th:attr="onclick=|customerDelete('${fac.id}', '${fac.name}')|"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteCustomer">
+                <i class="bi bi-trash3-fill">d</i>
+            </button>
+        </td>
+        <!--        <td class="table-info">>-->
+        <!--            <a th:href="@{/{id}/view(id=${blog.id})}" role="button">Xem Tin.....</a>-->
+        <!--        </td>-->
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{'/facility'(page=${facilityPage.number - 1})}" th:if="${facilityPage.hasPrevious()}">Previous</a>
+    <span th:text="${facilityPage.number + 1}"></span>/<span th:text="${facilityPage.totalPages}"></span>
+    <a th:href="@{'/facility'(page=${facilityPage.number + 1})}" th:if="${facilityPage.hasNext()}">Next</a>
+</div>
+
 </body>
+<footer th:replace="/home/layout :: footer"></footer>
+
+<div class="modal fade" id="deleteCustomer" tabindex="-1" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Bạn có chắc chắn muốn xóa?</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form th:action="@{/facility/delete}" method="GET">
+                <div class="modal-body">
+                    <span class="h6">facility:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
+                    <input type="hidden" name="idDelete" id="idDelete" readonly/>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-danger" value="delete">Xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function customerDelete(id, name) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").innerText = name;
+        debugger
+    }
+</script>
 </html>

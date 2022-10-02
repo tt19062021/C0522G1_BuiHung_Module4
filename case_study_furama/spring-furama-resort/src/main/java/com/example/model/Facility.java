@@ -1,23 +1,43 @@
-package furama_resort.model;
+package com.example.model;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Facility {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
-    private int area;
-    private double cost;
-    private int maxPeople;
-    private int rentType;
-    private int facilityType;
+    private String area;
+    private String cost;
+    private String maxPeople;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rentType_id",referencedColumnName = "id")
+    private RentType rentType;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="facilityType_id",referencedColumnName = "id")
+    private FacilityType facilityType;
+
     private String standardRoom;
     private String descriptionOtherConvenience;
-    private double poolArea;
-    private int numberOfFloors;
+    private String poolArea;
+    private String numberOfFloors;
     private String facilityFree;
+    private boolean isDelete;
+
+    @OneToMany(mappedBy = "facility")
+    private Set<Contract> contractSet;
 
     public Facility() {
     }
 
-    public Facility(int id, String name, int area, double cost, int maxPeople, int rentType, int facilityType, String standardRoom, String descriptionOtherConvenience, double poolArea, int numberOfFloors, String facilityFree) {
+    public Facility(int id, String name, String area, String cost, String maxPeople, RentType rentType, FacilityType facilityType,
+                    String standardRoom, String descriptionOtherConvenience,
+                    String poolArea, String numberOfFloors, String facilityFree, Set<Contract> contractSet) {
         this.id = id;
         this.name = name;
         this.area = area;
@@ -30,6 +50,7 @@ public class Facility {
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
         this.facilityFree = facilityFree;
+        this.contractSet = contractSet;
     }
 
     public int getId() {
@@ -48,43 +69,43 @@ public class Facility {
         this.name = name;
     }
 
-    public int getArea() {
+    public String getArea() {
         return area;
     }
 
-    public void setArea(int area) {
+    public void setArea(String area) {
         this.area = area;
     }
 
-    public double getCost() {
+    public String getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(String cost) {
         this.cost = cost;
     }
 
-    public int getMaxPeople() {
+    public String getMaxPeople() {
         return maxPeople;
     }
 
-    public void setMaxPeople(int maxPeople) {
+    public void setMaxPeople(String maxPeople) {
         this.maxPeople = maxPeople;
     }
 
-    public int getRentType() {
+    public RentType getRentType() {
         return rentType;
     }
 
-    public void setRentType(int rentType) {
+    public void setRentType(RentType rentType) {
         this.rentType = rentType;
     }
 
-    public int getFacilityType() {
+    public FacilityType getFacilityType() {
         return facilityType;
     }
 
-    public void setFacilityType(int facilityType) {
+    public void setFacilityType(FacilityType facilityType) {
         this.facilityType = facilityType;
     }
 
@@ -104,19 +125,19 @@ public class Facility {
         this.descriptionOtherConvenience = descriptionOtherConvenience;
     }
 
-    public double getPoolArea() {
+    public String getPoolArea() {
         return poolArea;
     }
 
-    public void setPoolArea(double poolArea) {
+    public void setPoolArea(String poolArea) {
         this.poolArea = poolArea;
     }
 
-    public int getNumberOfFloors() {
+    public String getNumberOfFloors() {
         return numberOfFloors;
     }
 
-    public void setNumberOfFloors(int numberOfFloors) {
+    public void setNumberOfFloors(String numberOfFloors) {
         this.numberOfFloors = numberOfFloors;
     }
 
@@ -126,5 +147,13 @@ public class Facility {
 
     public void setFacilityFree(String facilityFree) {
         this.facilityFree = facilityFree;
+    }
+
+    public Set<Contract> getContractSet() {
+        return contractSet;
+    }
+
+    public void setContractSet(Set<Contract> contractSet) {
+        this.contractSet = contractSet;
     }
 }

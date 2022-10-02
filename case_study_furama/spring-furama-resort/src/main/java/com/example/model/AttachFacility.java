@@ -1,25 +1,25 @@
-package com.example.furama_system.model;
+package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 public class AttachFacility {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private double cost;
+    private String cost;
     private String unit;
     private String status;
+
     @OneToMany(mappedBy = "attachFacility")
     private Set<ContractDetail> contractDetailSet;
 
     public AttachFacility() {
     }
 
-    public AttachFacility(int id, String name, double cost, String unit, String status, Set<ContractDetail> contractDetailSet) {
+    public AttachFacility(int id, String name, String cost, String unit, String status, Set<ContractDetail> contractDetailSet) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -44,11 +44,11 @@ public class AttachFacility {
         this.name = name;
     }
 
-    public double getCost() {
+    public String getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(String cost) {
         this.cost = cost;
     }
 

@@ -1,33 +1,34 @@
-package furama_resort.model;
+package com.example.model;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int customerType;
     private String name;
-    private int gender;
+    private String gender;
     private String dateOfBirth;
     private String idCard;
     private String phone;
     private String email;
     private String address;
 
+    @ManyToOne
+    @JoinColumn(name="customerType_id",referencedColumnName = "id")
+    private CustomerType customerType;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Contract> contractSet;
+
     public Customer() {
     }
 
-    public Customer(int customerType, String name, int gender, String dateOfBirth, String idCard, String phone, String email, String address) {
-        this.customerType = customerType;
-        this.name = name;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-        this.idCard = idCard;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-    }
-
-    public Customer(int id, int customerType, String name, int gender, String dateOfBirth, String idCard, String phone, String email, String address) {
+    public Customer(int id, String name, String gender, String dateOfBirth, String idCard, String phone,
+                    String email, String address, CustomerType customerType) {
         this.id = id;
-        this.customerType = customerType;
         this.name = name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -35,25 +36,7 @@ public class Customer {
         this.phone = phone;
         this.email = email;
         this.address = address;
-    }
-
-    public Customer(int id, int customerType, String dateOfBirth, int gender, String idCard, String phone, String email, String address) {
-        this.id = id;
         this.customerType = customerType;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.idCard = idCard;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getId() {
@@ -64,12 +47,20 @@ public class Customer {
         this.id = id;
     }
 
-    public int getCustomerType() {
-        return customerType;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerType(int customerType) {
-        this.customerType = customerType;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getDateOfBirth() {
@@ -78,14 +69,6 @@ public class Customer {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
     }
 
     public String getIdCard() {
@@ -118,5 +101,13 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
     }
 }

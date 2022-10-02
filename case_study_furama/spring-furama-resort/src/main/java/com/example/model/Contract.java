@@ -1,25 +1,44 @@
-package furama_resort.model;
+package com.example.model;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class Contract {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String startDate;
     private String endDate;
-    private double deposit;
-    private int employeeId;
-    private int customerId;
-    private int facilityId;
+    private String deposit;
 
+    @ManyToOne
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id",referencedColumnName = "id")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name ="facility_id", referencedColumnName = "id")
+    private Facility facility;
+
+    @OneToMany(mappedBy = "contract")
+    private Set<ContractDetail> contractDetailSet;
     public Contract() {
     }
 
-    public Contract(int id, String startDate, String endDate, double deposit, int employeeId, int customerId, int facilityId) {
+    public Contract(int id, String startDate, String endDate,
+                    String deposit, Employee employee,
+                    Customer customer, Facility facility) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.deposit = deposit;
-        this.employeeId = employeeId;
-        this.customerId = customerId;
-        this.facilityId = facilityId;
+        this.employee = employee;
+        this.customer = customer;
+        this.facility = facility;
     }
 
     public int getId() {
@@ -46,35 +65,35 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    public double getDeposit() {
+    public String getDeposit() {
         return deposit;
     }
 
-    public void setDeposit(double deposit) {
+    public void setDeposit(String deposit) {
         this.deposit = deposit;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public int getFacilityId() {
-        return facilityId;
+    public Facility getFacility() {
+        return facility;
     }
 
-    public void setFacilityId(int facilityId) {
-        this.facilityId = facilityId;
+    public void setFacility(Facility facility) {
+        this.facility = facility;
     }
 }

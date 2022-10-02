@@ -1,2 +1,11 @@
-package com.example.service;public interface IFacilityTypeService {
+package com.example.service;
+
+import com.example.model.FacilityType;
+
+
+import java.util.List;
+
+public interface IFacilityTypeService {
+
+    List<FacilityType> findAll();
 }

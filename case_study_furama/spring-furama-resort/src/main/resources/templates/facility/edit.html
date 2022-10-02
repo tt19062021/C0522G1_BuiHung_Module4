@@ -1,10 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/layout :: head"></head>
 <body>
-$END$
+<h3>Update Facility</h3>
+
+<a class="btn btn-primary" th:href="@{/facility}" role="button">Home</a>
+<div id="form">
+    <form th:action="@{/facility/update}" th:object="${facilityDto}"
+          method="POST" novalidate="novalidate">
+        <table class="table">
+            <tr>
+                <td>Id:</td>
+                <td><input type="hidden" th:field="*{id}"/></td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="*{name}"/></td>
+            </tr>
+            <tr>
+                <td>Area:</td>
+                <td>
+                    <input type="text" th:field="*{area}"/>
+                    <p style="color: red" th:errors="*{area}"
+                       th:if="${#fields.hasErrors('area')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Cost:</td>
+                <td ><input type="text" th:field="*{cost}"/>
+                    <p style="color: red" th:errors="*{cost}"
+                       th:if="${#fields.hasErrors('cost')}"></p></td>
+            </tr>
+            <tr>
+                <td>Max People:</td>
+                <td>
+                    <input type="text" th:field="*{maxPeople}"/>
+                    <p style="color: #45a049" th:errors="*{maxPeople}"
+                       th:if="${#fields.hasErrors('maxPeople')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Rent Type:</td>
+                <td>
+                    <select th:field="*{rentType}">
+                        <option th:each="rent : ${rentTypes}" th:value="${rent.id}" th:text="${rent.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Facility Type:</td>
+                <td>
+                    <select th:field="*{facilityType}">
+                        <option th:each="fac : ${facilityTypes}" th:value="${fac.id}" th:text="${fac.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Room:</td>
+                <td>
+                    <input type="text" th:field="*{standardRoom}"/>
+                    <p style="color: red"th:errors="*{standardRoom}"
+                       th:if="${#fields.hasErrors('standardRoom')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>
+                    <input type="text" th:field="*{descriptionOtherConvenience}"/>
+                    <p style="color: red"th:errors="*{descriptionOtherConvenience}"
+                       th:if="${#fields.hasErrors('descriptionOtherConvenience')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Pool Area:</td>
+                <td>
+                    <input type="text" th:field="*{poolArea}"/>
+                    <p style="color: red"th:errors="*{poolArea}"
+                       th:if="${#fields.hasErrors('poolArea')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Floors:</td>
+                <td>
+                    <input type="text" th:field="*{numberOfFloors}"/>
+                    <p style="color: red"th:errors="*{numberOfFloors}"
+                       th:if="${#fields.hasErrors('numberOfFloors')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>Service Free:</td>
+                <td>
+                    <input type="text" th:field="*{facilityFree}"/>
+                    <p style="color: red"th:errors="*{facilityFree}"
+                       th:if="${#fields.hasErrors('facilityFree')}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Update"/></td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+
+<footer th:replace="/home/layout :: footer"></footer>
 </body>
 </html>

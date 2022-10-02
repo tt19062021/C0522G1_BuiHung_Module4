@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/home/layout :: head"></head>
 <body>
-$END$
+<h3>Delete Facility</h3>
+
+<a class="btn btn-primary" th:href="@{/facility}" role="button">Home</a>
+
+<div id="form">
+    <form th:action="@{/facility/delete}" th:object="${facilitys}"
+          method="POST" novalidate="novalidate">
+        <div id="detail">
+            <div class="cusdetail">
+                <label th:text="${facilitys.name}"></label>
+            </div>
+            <div class="cusdetail">
+                <label th:text="${facilitys.area}"></label>
+            </div>
+            <div class="cusdetail">
+                <label th:text="${facilitys.facilityFree}"></label>
+            </div>
+            <div class="cusdetail">
+                <label th:text="${facilitys.cost}"></label>
+            </div>
+            <div class="cusdetail">
+                <label th:text="${facilitys.poolArea}"></label>
+            </div>
+            <div class="cusdetail">
+                <label th:text="${facilitys.numberOfFloors}"></label>
+            </div>
+
+            <div class="cusdetail">
+                <label th:text="${facilitys.maxPeople}"></label>
+            </div>
+            <div>
+                <span th:if="${facilitys.rentType}" th:text="${facilitys.rentType.name}"></span>
+                <span th:unless="${facilitys.rentType}">non</span><br>
+            </div>
+            <div>
+                <span th:if="${facilitys.facilityType}" th:text="${facilitys.facilityType.name}"></span>
+                <span th:unless="${facilitys.facilityType}">non</span><br>
+            </div>
+            <input type="submit" value="Delete"/>
+        </div>
+    </form>
+</div>
 </body>
 </html>

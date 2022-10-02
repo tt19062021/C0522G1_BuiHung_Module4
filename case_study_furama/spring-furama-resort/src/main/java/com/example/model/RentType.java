@@ -1,15 +1,25 @@
-package furama_resort.model;
+package com.example.model;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
 public class RentType {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+
+    @OneToMany(mappedBy = "rentType")
+    private Set<Facility> facilitySet;
 
     public RentType() {
     }
 
-    public RentType(int id, String name) {
+    public RentType(int id, String name, Set<Facility> facilitySet) {
         this.id = id;
         this.name = name;
+        this.facilitySet = facilitySet;
     }
 
     public int getId() {
@@ -26,5 +36,13 @@ public class RentType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Facility> getFacilitySet() {
+        return facilitySet;
+    }
+
+    public void setFacilitySet(Set<Facility> facilitySet) {
+        this.facilitySet = facilitySet;
     }
 }
