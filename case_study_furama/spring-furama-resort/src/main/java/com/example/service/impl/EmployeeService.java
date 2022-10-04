@@ -30,11 +30,6 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public void update(Employee employee) {
-        iEmployeeRepository.save(employee);
-    }
-
-    @Override
     public void remove(int id) {
         iEmployeeRepository.deleteById(id);
     }

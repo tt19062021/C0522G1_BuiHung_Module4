@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/home/layout :: head"></head>
 <body>
-<h3>Update Facility</h3>
+<h3 style="text-align: center">Update Facility</h3>
 
 <a class="btn btn-primary" th:href="@{/facility}" role="button">Home</a>
 <div id="form">
     <form th:action="@{/facility/update}" th:object="${facilityDto}"
           method="POST" novalidate="novalidate">
-        <table class="table">
+        <table class="table" style="width: 60%;margin-left: 20%" border="1">
             <tr>
                 <td>Id:</td>
                 <td><input type="hidden" th:field="*{id}"/></td>
@@ -96,6 +96,7 @@
                 </td>
             </tr>
             <tr>
+                <td></td>
                 <td><input type="submit" value="Update"/></td>
             </tr>
 

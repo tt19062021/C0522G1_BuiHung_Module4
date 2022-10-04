@@ -60,7 +60,6 @@ public class CustomerController {
             iCustomerService.save(customer);
             redirectAttributes.addFlashAttribute("messCreate", "Create Success!!");
             return "redirect:/customer";
-
     }
 
     @GetMapping("/edit/{id}")

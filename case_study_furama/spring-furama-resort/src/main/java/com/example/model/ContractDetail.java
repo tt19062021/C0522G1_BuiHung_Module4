@@ -22,7 +22,8 @@ public class ContractDetail {
     public ContractDetail() {
     }
 
-    public ContractDetail(int id, Contract contract, AttachFacility attachFacility, String quantity, String isDelete) {
+    public ContractDetail(int id, Contract contract, AttachFacility attachFacility,
+                          String quantity, String isDelete) {
         this.id = id;
         this.contract = contract;
         this.attachFacility = attachFacility;

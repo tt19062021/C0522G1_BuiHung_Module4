@@ -19,7 +19,9 @@ public class AttachFacility {
     public AttachFacility() {
     }
 
-    public AttachFacility(int id, String name, String cost, String unit, String status, Set<ContractDetail> contractDetailSet) {
+    public AttachFacility(int id, String name, String cost,
+                          String unit, String status,
+                          Set<ContractDetail> contractDetailSet) {
         this.id = id;
         this.name = name;
         this.cost = cost;

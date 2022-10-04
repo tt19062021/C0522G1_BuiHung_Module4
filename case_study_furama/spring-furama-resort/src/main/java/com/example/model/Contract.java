@@ -11,6 +11,8 @@ public class Contract {
     private String startDate;
     private String endDate;
     private String deposit;
+    private boolean isDelete;
+    private String totalMoney;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
@@ -26,7 +28,50 @@ public class Contract {
 
     @OneToMany(mappedBy = "contract")
     private Set<ContractDetail> contractDetailSet;
+
     public Contract() {
+    }
+
+    public Contract(String startDate, String endDate, String deposit, boolean isDelete, String totalMoney,
+                    Employee employee, Customer customer, Facility facility) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.deposit = deposit;
+        this.isDelete = isDelete;
+        this.totalMoney = totalMoney;
+        this.employee = employee;
+        this.customer = customer;
+        this.facility = facility;
+    }
+
+    public Contract(int id, String startDate, String endDate, String deposit,
+                    boolean isDelete, String totalMoney, Employee employee, Customer customer,
+                    Facility facility, Set<ContractDetail> contractDetailSet) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.deposit = deposit;
+        this.isDelete = isDelete;
+        this.totalMoney = totalMoney;
+        this.employee = employee;
+        this.customer = customer;
+        this.facility = facility;
+        this.contractDetailSet = contractDetailSet;
+    }
+
+    public Contract(int id, String startDate, String endDate, String deposit,
+                    boolean isDelete, Employee employee, Customer customer,
+                    Facility facility,
+                    Set<ContractDetail> contractDetailSet) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.deposit = deposit;
+        this.isDelete = isDelete;
+        this.employee = employee;
+        this.customer = customer;
+        this.facility = facility;
+        this.contractDetailSet = contractDetailSet;
     }
 
     public Contract(int id, String startDate, String endDate,
@@ -39,6 +84,30 @@ public class Contract {
         this.employee = employee;
         this.customer = customer;
         this.facility = facility;
+    }
+
+    public String getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(String totalMoney) {
+        this.totalMoney = totalMoney;
+    }
+
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
+    }
+
+    public Set<ContractDetail> getContractDetailSet() {
+        return contractDetailSet;
+    }
+
+    public void setContractDetailSet(Set<ContractDetail> contractDetailSet) {
+        this.contractDetailSet = contractDetailSet;
     }
 
     public int getId() {

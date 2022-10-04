@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/home/layout :: head"></head>
 <body>
-<h3 style="text-align: center">Create Customer</h3>
+<h3>Create Customer</h3>
 
 <a class="btn btn-primary" th:href="@{/facility}" role="button">Home</a>
 
-<form th:action="@{/employee/save}" th:object="${employeeDto}"
+<form th:action="@{/employee/update}" th:object="${employees} "
       method="POST" novalidate="novalidate" style="width: 60%;margin-left: 20%" border="1">
     <div class="mb-3">
-
+        <label  class="col-form-label">Id:</label>
         <input type="hidden" class="form-control"  th:field="*{id}">
     </div>
     <div class="mb-3">
@@ -58,8 +58,8 @@
             <option th:each="divi : ${divisions}" th:value="${divi.id}" th:text="${divi.name}"></option>
         </select>
     </div>
-    <div style="margin-left: 40%">
-        <button class="btn btn-primary" style="height: 30px;text-align: center" type="submit" value="Save">Save</button>
+    <div>
+        <button class="btn btn-primary" style="height: 30px;text-align: center" type="submit" value="Save">Edit</button>
 
         <button class="btn btn-primary" style="height: 30px;text-align: center" th:href="@{/employee}">Close</button>
     </div>

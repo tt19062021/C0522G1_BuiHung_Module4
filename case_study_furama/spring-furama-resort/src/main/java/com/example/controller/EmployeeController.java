@@ -1,7 +1,9 @@
 package com.example.controller;
 
 
+import com.example.dto.CustomerDto;
 import com.example.dto.EmployeeDto;
+import com.example.model.Customer;
 import com.example.model.Employee;
 import com.example.service.IDivisionService;
 import com.example.service.IEducationDegreeService;
@@ -43,6 +45,10 @@ public class EmployeeController {
         model.addAttribute("name",name);
         model.addAttribute("phone",phone);
         model.addAttribute("idCard",idCard);
+        model.addAttribute("employeeDto", new EmployeeDto());
+        model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
+        model.addAttribute("positions", iPositionService.findAll());
+        model.addAttribute("divisions",iDivisionService.findAll());
         return "employee/list";
     }
 
@@ -61,7 +67,7 @@ public class EmployeeController {
 //            model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
 //            model.addAttribute("positions", iPositionService.findAll());
 //            model.addAttribute("divisions", iDivisionService.findAll());
-//            return "employee/list";
+//            return "employee/create";
 //        } else {
             Employee employee = new Employee();
             BeanUtils.copyProperties(employeeDto, employee);
@@ -71,8 +77,13 @@ public class EmployeeController {
 
     }
 
-    @GetMapping("/update/{id}")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
+
+        Employee employee = iEmployeeService.findById(id);
+        EmployeeDto employeeDto = new EmployeeDto();
+        BeanUtils.copyProperties(employee, employeeDto);
+
         model.addAttribute("employees", iEmployeeService.findById(id));
         model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
         model.addAttribute("positions", iPositionService.findAll());
@@ -81,8 +92,12 @@ public class EmployeeController {
     }
 
     @PostMapping("/update")
-    public String update(Employee employee, RedirectAttributes redirectAttributes) {
-        iEmployeeService.update(employee);
+    public String update(EmployeeDto employeeDto, RedirectAttributes redirectAttributes) {
+
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDto, employee);
+
+        iEmployeeService.save(employee);
         redirectAttributes.addFlashAttribute("messUpdate", "Update Success!");
         return "redirect:/employee";
     }
