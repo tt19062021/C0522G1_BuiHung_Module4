@@ -5,10 +5,10 @@
 </head>
 <body>
 
-<h3 style="text-align: center; color: blue">CONTRACT</h3>
+<h2 style="text-align: center; color: blue">CONTRACT</h2>
 
-<a class="btn btn-primary" th:href="@{/contract/create}" role="button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+<a class="btn btn-primary"  role="button" data-bs-toggle="modal" data-bs-target="#addContract">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
          class="bi bi-plus-circle" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5
@@ -16,40 +16,48 @@
     </svg>
     New Contract</a>
 <h4 style="text-align: center;">
-    <div><div style="color: #4CAF50" th:if="${messCreate}"><span th:text="${messCreate}"></span></div></div>
-    <div><div style="color: #4CAF50" th:if="${messUpdate}"><span th:text="${messUpdate}"></span></div></div>
-    <div><div style="color: #4CAF50" th:if="${messDelete}"><span th:text="${messDelete}"></span></div></div>
+    <div>
+        <div style="color: #4CAF50" th:if="${messCreate}"><span th:text="${messCreate}"></span></div>
+    </div>
+    <div>
+        <div style="color: #4CAF50" th:if="${messUpdate}"><span th:text="${messUpdate}"></span></div>
+    </div>
+    <div>
+        <div style="color: #4CAF50" th:if="${messDelete}"><span th:text="${messDelete}"></span></div>
+    </div>
 </h4>
 
 <table class="table">
     <thead class="table-dark">
     <tr>
         <!--        <th scope="col">#</th>-->
-        <th scope="col" >#</th>
-        <th scope="col" >Facility</th>
-        <th scope="col" >Customer</th>
-        <th scope="col" >Star Day</th>
-        <th scope="col" >End Day</th>
-        <th scope="col" >Deposit</th>
-        <th scope="col" >Cost Count</th>
-        <th scope="col" >List Attach Facility</th>
+        <th scope="col">#</th>
+        <th scope="col">Facility</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Star Day</th>
+        <th scope="col">End Day</th>
+        <th scope="col">Deposit</th>
+        <th scope="col">Cost Count</th>
+        <th scope="col">List Attach Facility</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="cont,raw : ${contracts}">
-        <td th:text="${raw.count}" ></td>
-        <td th:text="${cont.facility.name}" ></td>
-        <td th:text="${cont.customer.name}"  ></td>
-        <td th:text="${cont.startDate}" ></td>
-        <td th:text="${cont.endDate}" ></td>
-        <td th:text="${cont.deposit}" ></td>
-        <td th:text="${cont.totalMoney}" ></td>
+        <td th:text="${raw.count}"></td>
+        <td th:text="${cont.facility.name}"></td>
+        <td th:text="${cont.customer.name}"></td>
+        <td th:text="${cont.startDate}"></td>
+        <td th:text="${cont.endDate}"></td>
+        <td th:text="${cont.deposit}"></td>
+        <td th:text="${cont.totalMoney}"></td>
 
         <td>
-            <button type="button" class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
-            </svg></button>
+            <button  type="button" class="btn btn-primary"  >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                </svg>
+            </button>
             <button type="button" class="btn btn-primary">Accompanied Service</button>
         </td>
     </tr>
@@ -62,5 +70,61 @@
     <a th:href="@{'/contract'(page=${contracts.number + 1})}" th:if="${contracts.hasNext()}">Next</a>
 </div>
 
+<!--modal them moi hd chi tiet-->
+<div class="modal fade" id="addContract" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">New Contract</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/contract/save}" method="post" th:object="${contractDto}">
+                    <div class="mb-3">
+                        <input type="hidden" class="form-control"  th:field="*{id}">
+                    </div>
+                    <div class="mb-3">
+                        <label>Start Day:</label>
+                        <input type="date" class="form-control"  th:field="*{startDate}">
+                    </div>
+                    <div class="mb-3">
+                        <label>End Day:</label>
+                        <input type="date" class="form-control"  th:field="*{endDate}">
+                    </div>
+                    <div class="mb-3">
+                        <label>Deposit: </label>
+                        <input type="text" class="form-control"  th:field="*{deposit}">
+                    </div>
+                    <div class="mb-3">
+                        <label>Facility   :</label>
+                        <select  class="col-form-label" th:field="*{facility}">
+                            <option th:each="fac : ${facilitys}" th:value="${fac.id}" th:text="${fac.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Customer :</label>
+                        <select  class="col-form-label" th:field="*{customer}">
+                            <option th:each="cus : ${customers}" th:value="${cus.id}" th:text="${cus.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label>Employee : </label>
+                        <select  class="col-form-label" th:field="*{employee}">
+                            <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.nameEmployee}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

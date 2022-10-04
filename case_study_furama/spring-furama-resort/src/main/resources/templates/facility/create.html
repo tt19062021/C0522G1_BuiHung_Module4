@@ -3,112 +3,167 @@
 <head th:replace="/home/layout :: head"></head>
 <body>
 
-<h3 style="text-align: center">Create Facility</h3>
+<h2 style="text-align: center;color: cornflowerblue">Create Service</h2>
 
-<a class="btn btn-primary" th:href="@{/facility}" role="button">Home</a>
+<div class="row">
+    <a class="btn btn-primary" th:href="@{/facility}" role="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-house-door"
+             viewBox="0 0 16 16">
+            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+        </svg>
+        Home</a>
+</div>
 
-<div id="form" >
+<div style="background-color: #caced1">
     <form th:action="@{/facility/save}" th:object="${facilityDto}"
-          method="POST" novalidate="novalidate">
-        <table class="table" style="width: 60%;margin-left: 20%" border="1">
-            <tr>
-                <td><input type="hidden" th:field="*{id}"/></td>
-            </tr>
-            <tr>
-                <td>Facility Type:</td>
-                <td>
-                    <select th:field="*{facilityType}" onchange="changeForm(this)">
-                        <option th:value="${''}">Chose Type..</option>
-                        <option th:each="fac : ${facilityTypes}" th:value="${fac.id}" th:text="${fac.name}"></option>
-                    </select>
-                </td>
-            </tr>
+          method="POST" novalidate="novalidate" style="width: 45%;margin-left: 28%">
+        <div class="mb-3">
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+        <div class="mb-3">
+            <b>Service Type</b>
+            <select class="form-select" th:field="*{facilityType}" onchange="changeForm(this)">
+                <option th:value="${''}">Chose Type..</option>
+                <option th:each="fac : ${facilityTypes}" th:value="${fac.id}" th:text="${fac.name}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <b for="exampleFormControlInput1">Name: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput1" th:field="*{name}">
+        </div>
 
-            <tr>
-                <td>Name:</td>
-                <td><input type="text" th:field="*{name}"/></td>
-            </tr>
-            <tr>
-                <td>Area:</td>
-                <td>
-                    <input type="text" th:field="*{area}"/>
-                    <p style="color: red" th:errors="*{area}"
-                       th:if="${#fields.hasErrors('area')}"></p>
-                </td>
-            </tr>
-            <tr>
-                <td>Cost:</td>
-                <td><input type="text" th:field="*{cost}"/>
-                    <p style="color: red" th:errors="*{cost}"
-                       th:if="${#fields.hasErrors('cost')}"></p></td>
-            </tr>
-            <tr>
-                <td>Max People:</td>
-                <td>
-                    <input type="text" th:field="*{maxPeople}"/>
-                    <p style="color: #45a049" th:errors="*{maxPeople}"
-                       th:if="${#fields.hasErrors('maxPeople')}"></p>
-                </td>
-            </tr>
-            <tr>
-                <td>Rent Type:</td>
-                <td>
-                    <select th:field="*{rentType}">
-                        <option th:each="rent : ${rentTypes}" th:value="${rent.id}" th:text="${rent.name}"></option>
-                    </select>
-                </td>
-            </tr>
+        <div class="mb-3">
+            <b for="exampleFormControlInput2">Area: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput2" th:field="*{area}">
+        </div>
+
+        <div class="mb-3">
+            <b for="exampleFormControlInput4">Cost: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput4" th:field="*{cost}">
+        </div>
+        <div class="mb-3">
+            <b for="exampleFormControlInput5">Max People: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput5" th:field="*{maxPeople}">
+        </div>
+
+        <div class="mb-3">
+            <b for="exampleFormControlSelect3">Rent Type</b>
+            <select class="form-select" id="exampleFormControlSelect3" th:field="*{rentType}">
+                <option th:each="rent : ${rentTypes}" th:value="${rent.id}" th:text="${rent.name}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3" id="standardRoom">
+            <b for="exampleFormControlInput7">Standard Room: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput7" th:field="*{standardRoom}">
+        </div>
+        <div class="mb-3" id="descriptionOtherConvenience">
+            <b for="exampleFormControlInput8">Description: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput8"
+                   th:field="*{descriptionOtherConvenience}">
+        </div>
+
+        <div class="mb-3" id="poolArea">
+            <b for="exampleFormControlInput9">Pool'area: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput9" th:field="*{poolArea}">
+        </div>
+
+        <div class="mb-3" id="numberOfFloors">
+            <b for="exampleFormControlInput10">Number'Floor: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput10" th:field="*{numberOfFloors}">
+        </div>
+
+        <div class="mb-3" id="facilityFree">
+            <b for="exampleFormControlInput11">Service Free: </b>
+            <input type="text" class="form-control" id="exampleFormControlInput11" th:field="*{facilityFree}">
+        </div>
+        <!--            <div class="form-group">-->
+        <!--                <label>Facility Type:</label>-->
+
+        <!--                <select th:field="*{facilityType}" onchange="changeForm(this)">-->
+        <!--                    <option th:value="${''}">Chose Type..</option>-->
+        <!--                    <option th:each="fac : ${facilityTypes}" th:value="${fac.id}" th:text="${fac.name}"></option>-->
+        <!--                </select>-->
+        <!--            </div>-->
+
+        <!--            <div class="form-group">-->
+        <!--                <label>Name:</label>-->
+        <!--                <input type="text" th:field="*{name}"/>-->
+        <!--            </div>-->
+        <!--            <div class="form-group">-->
+        <!--                <label>Area:</label>-->
+
+        <!--                <input type="text" th:field="*{area}"/>-->
+        <!--                <p style="color: red" th:errors="*{area}"-->
+        <!--                   th:if="${#fields.hasErrors('area')}"></p>-->
+        <!--            </div>-->
+        <!--            <div class="form-group">-->
+        <!--                <label>Cost:</label>-->
+        <!--                <input type="text" th:field="*{cost}"/>-->
+        <!--                <p style="color: red" th:errors="*{cost}"-->
+        <!--                   th:if="${#fields.hasErrors('cost')}"></p>-->
+        <!--            </div>-->
+        <!--            <div class="form-group">-->
+        <!--                <label>Max People:</label>-->
+
+        <!--                <input type="text" th:field="*{maxPeople}"/>-->
+        <!--                <p style="color: #45a049" th:errors="*{maxPeople}"-->
+        <!--                   th:if="${#fields.hasErrors('maxPeople')}"></p>-->
+
+        <!--            </div>-->
+        <!--            <div class="form-group">-->
+        <!--                <label>Rent Type:</label>-->
+
+        <!--                <select th:field="*{rentType}">-->
+        <!--                    <option th:each="rent : ${rentTypes}" th:value="${rent.id}" th:text="${rent.name}"></option>-->
+        <!--                </select>-->
+
+        <!--            </div>-->
 
 
-            <tr id="standardRoom">
-                <td>Standard Room:</td>
-                <td>
-                    <input type="text" th:field="*{standardRoom}"/>
-                    <p style="color: red" th:errors="*{standardRoom}"
-                       th:if="${#fields.hasErrors('standardRoom')}"></p>
-                </td>
-            </tr>
+        <!--            <div id="standardRoom" class="form-group">-->
+        <!--                <label>Standard Room:</label>-->
 
-            <tr id="descriptionOtherConvenience">
-                <td>Description:</td>
-                <td>
-                    <input type="text" th:field="*{descriptionOtherConvenience}"/>
-                    <p style="color: red" th:errors="*{descriptionOtherConvenience}"
-                       th:if="${#fields.hasErrors('descriptionOtherConvenience')}"></p>
-                </td>
-            </tr>
-            <tr id="poolArea">
-                <td>Pool Area:</td>
-                <td>
-                    <input type="text" th:field="*{poolArea}"/>
-                    <p style="color: red" th:errors="*{poolArea}"
-                       th:if="${#fields.hasErrors('poolArea')}"></p>
-                </td>
-            </tr>
-            <tr id="numberOfFloors">
-                <td>Floors:</td>
-                <td>
-                    <input type="text" th:field="*{numberOfFloors}"/>
-                    <p style="color: red" th:errors="*{numberOfFloors}"
-                       th:if="${#fields.hasErrors('numberOfFloors')}"></p>
-                </td>
-            </tr>
-            <tr id="facilityFree">
-                <td>Service Free:</td>
-                <td>
-                    <input type="text" th:field="*{facilityFree}"/>
-                    <p style="color: red" th:errors="*{facilityFree}"
-                       th:if="${#fields.hasErrors('facilityFree')}"></p>
-                </td>
-            </tr>
-            <tr >
+        <!--                <input type="text" th:field="*{standardRoom}"/>-->
+        <!--                <p style="color: red" th:errors="*{standardRoom}"-->
+        <!--                   th:if="${#fields.hasErrors('standardRoom')}"></p>-->
 
-                <td style="margin-left: 40%"><button class="btn btn-primary" style="height: 30px;text-align: center" type="submit" value="Save">Save</button></td>
+        <!--            </div>-->
 
-                <td style="margin-left: 40%"><button class="btn btn-primary" style="height: 30px;text-align: center" th:href="@{/facility}">Close</button></td>
-            </tr>
+        <!--            <div id="descriptionOtherConvenience" class="form-group">-->
+        <!--                <label>Description:</label>-->
 
-        </table>
+        <!--                <input type="text" th:field="*{descriptionOtherConvenience}"/>-->
+        <!--                <p style="color: red" th:errors="*{descriptionOtherConvenience}"-->
+        <!--                   th:if="${#fields.hasErrors('descriptionOtherConvenience')}"></p>-->
+
+        <!--            </div >-->
+        <!--            <div id="poolArea" class="form-group">-->
+        <!--                <label>Pool Area:</label>-->
+        <!--                <input type="text" th:field="*{poolArea}"/>-->
+        <!--                <p style="color: red" th:errors="*{poolArea}"-->
+        <!--                   th:if="${#fields.hasErrors('poolArea')}"></p>-->
+        <!--            </div>-->
+        <!--            <div id="numberOfFloors" class="form-group">-->
+        <!--                <label>Floors:</label>-->
+
+        <!--                <input type="text" th:field="*{numberOfFloors}"/>-->
+        <!--                <p style="color: red" th:errors="*{numberOfFloors}"-->
+        <!--                   th:if="${#fields.hasErrors('numberOfFloors')}"></p>-->
+
+        <!--            </div>-->
+        <!--            <div id="facilityFree" class="form-group">-->
+        <!--                <label>Service Free:</label>-->
+
+        <!--                <input type="text" th:field="*{facilityFree}"/>-->
+        <!--                <p style="color: red" th:errors="*{facilityFree}"-->
+        <!--                   th:if="${#fields.hasErrors('facilityFree')}"></p>-->
+
+        <!--            </div>-->
+        <div style="margin-left: 30%;height: 100px">
+            <button class="btn btn-primary" style="height: 50px;width: 50%" type="submit" value="Save">Save</button>
+            <!--        <button class="btn btn-primary" style="height: 50px;" th:href="@{/employee}">Close</button>-->
+        </div>
     </form>
 </div>
 

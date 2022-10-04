@@ -2,67 +2,75 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/home/layout :: head"></head>
 <body>
-<h3 style="text-align: center">Create Customer</h3>
+<h2 style="text-align: center;color: cornflowerblue">Create Employee</h2>
 
-<a class="btn btn-primary" th:href="@{/facility}" role="button">Home</a>
+<div class="row">
+<a class="btn btn-primary" th:href="@{/employee}" role="button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+    </svg>
+    Home</a>
+</div>
 
+<div style="background-color: #caced1">
 <form th:action="@{/employee/save}" th:object="${employeeDto}"
-      method="POST" novalidate="novalidate" style="width: 60%;margin-left: 20%" border="1">
+      method="POST" novalidate="novalidate" style="width: 45%;margin-left: 28%" >
     <div class="mb-3">
-
         <input type="hidden" class="form-control"  th:field="*{id}">
     </div>
     <div class="mb-3">
-        <label  class="col-form-label">Name:</label>
+        <b  class="col-form-label">Name:</b>
         <input type="text" class="form-control"  th:field="*{nameEmployee}">
     </div>
     <div class="mb-3">
-        <label class="col-form-label">BirthDay:</label>
+        <b class="col-form-label">BirthDay:</b>
         <input type="date" class="form-control"  th:field="*{dateOfBirth}">
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Card:</label>
+        <b class="col-form-label">Card:</b>
         <input type="text" class="form-control"  th:field="*{idCard}">
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Phone:</label>
+        <b class="col-form-label">Phone:</b>
         <input type="text" class="form-control"  th:field="*{phoneNumber}">
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Email:</label>
+        <b class="col-form-label">Email:</b>
         <input type="text" class="form-control"  th:field="*{email}">
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Salary:</label>
+        <b class="col-form-label">Salary:</b>
         <input type="text" class="form-control"  th:field="*{salary}">
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Address:</label>
+        <b class="col-form-label">Address:</b>
         <input type="text" class="form-control"  th:field="*{address}">
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Education:</label>
-        <select th:field="*{educationDegree}" class="form-control">
+        <b class="col-form-label">Education:</b>
+        <select th:field="*{educationDegree}" class="form-select">
             <option th:each="edu : ${educationDegrees}" th:value="${edu.id}" th:text="${edu.name}"></option>
         </select>
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Position:</label>
-        <select th:field="*{position}" class="form-control">
+        <b class="col-form-label">Position:</b>
+        <select th:field="*{position}" class="form-select">
             <option th:each="pos : ${positions}" th:value="${pos.id}" th:text="${pos.name}"></option>
         </select>
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Divition:</label>
-        <select th:field="*{division}" class="form-control">
+        <b class="col-form-label">Divition:</b>
+        <select th:field="*{division}" class="form-select">
             <option th:each="divi : ${divisions}" th:value="${divi.id}" th:text="${divi.name}"></option>
         </select>
     </div>
-    <div style="margin-left: 40%">
-        <button class="btn btn-primary" style="height: 30px;text-align: center" type="submit" value="Save">Save</button>
-
-        <button class="btn btn-primary" style="height: 30px;text-align: center" th:href="@{/employee}">Close</button>
+    <div style="margin-left: 30%;height: 100px">
+        <button class="btn btn-primary" style="height: 50px;width: 50%" type="submit" value="Save">Save</button>
+<!--        <button class="btn btn-primary" style="height: 50px;" th:href="@{/employee}">Close</button>-->
     </div>
 </form>
+</div>
+
 </body>
+<footer th:replace="/home/layout :: footer"></footer>
 </html>

@@ -43,6 +43,11 @@ public class FacilityService implements IFacilityService {
     }
 
     @Override
+    public List<Facility> findAll() {
+        return iFacilityRepository.findAll();
+    }
+
+    @Override
     public List<IFacilityDto> findIdName() {
         return iFacilityRepository.findIdNameDto();
     }

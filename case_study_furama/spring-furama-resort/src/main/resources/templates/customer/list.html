@@ -5,15 +5,16 @@
 </head>
 <body>
 
-<h3 style="text-align: center; color: blue">CUSTOMER</h3>
+<h2 style="text-align: center; color: blue">CUSTOMER</h2>
 <h4 style="text-align: center;">
     <div><div style="color: #4CAF50" th:if="${messCreate}"><span th:text="${messCreate}"></span></div></div>
     <div><div style="color: #4CAF50" th:if="${messUpdate}"><span th:text="${messUpdate}"></span></div></div>
     <div><div style="color: #4CAF50" th:if="${messDelete}"><span th:text="${messDelete}"></span></div></div>
 </h4>
 
+<div class="row">
 <a class="btn btn-primary" th:href="@{/customer/create}" role="button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
          class="bi bi-plus-circle" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5
@@ -21,16 +22,24 @@
     </svg>
     New Customer</a>
 
-<form class="d-flex my-2" role="search" style="margin-left: auto" action="" method="get">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name">
-    <button class="btn btn-outline-success" type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>Search</button>
-</form>
-
+    <form class="d-flex my-2" role="search" action="" method="get">
+        <input style="background-color: #f2f2f2; border: 1px solid olivedrab" class="form-control me-2" type="search"
+               placeholder="search..by..name" aria-label="Search"
+               name="name">
+        <input style="background-color: #f2f2f2; border: 1px solid olivedrab" class="form-control me-2" type="search"
+               placeholder="search..by..phone" aria-label="Search"
+               name="phone">
+        <input style="background-color: #f2f2f2; border: 1px solid olivedrab" class="form-control me-2" type="search"
+               placeholder="search..by..address" aria-label="Search"
+               name="address">
+        <button style="background-color: #45a049" class="btn btn-info" type="submit" name="action" value="search">
+            <i class="fa-solid fa-magnifying-glass text-light"></i></button>
+    </form>
+</div>
 <table class="table">
     <thead>
     <tr>
-        <!--        <th scope="col">#</th>-->
+        <th scope="col" class="table-primary">#</th>
         <th scope="col" class="table-primary">Name</th>
         <th scope="col" class="table-primary">Gender</th>
         <th scope="col" class="table-primary">BirthDay</th>
@@ -45,7 +54,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="cus : ${customers}">
+    <tr th:each="cus, row : ${customers}">
+        <td th:text="${row.count}" class="table-info"></td>
         <td th:text="${cus.name}" class="table-info"></td>
 
         <td th:if="${cus.gender}"  th:text="Male" class="table-info"></td>
@@ -59,7 +69,7 @@
         <td th:text="${cus.customerType.name}" class="table-info"></td>
 
 
-        <td class="table-info"><a
+        <td class="table-info">
             <a th:href="@{/customer/edit/{id}(id=${cus.id})}" role="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-fill"
                      viewBox="0 0 16 16">
@@ -112,7 +122,7 @@
 
             <form th:action="@{/customer/delete}" method="GET">
                 <div class="modal-body">
-                    <span class="h6">facility:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
+                    <span class="h6">Customer :</span><strong id="nameDelete" class="text-danger ps-2"></strong>
                     <input type="hidden" name="idDelete" id="idDelete" readonly/>
                 </div>
 

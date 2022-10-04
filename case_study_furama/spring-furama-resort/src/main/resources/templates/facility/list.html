@@ -5,26 +5,47 @@
 </head>
 <body>
 
-<h3 style="text-align: center; color: blue">Facility List</h3>
+<h2 style="text-align: center;color: cornflowerblue">SERVICE</h2>
 <h4 style="text-align: center;">
-    <div><div style="color: #4CAF50" th:if="${messCreate}"><span th:text="${messCreate}"></span></div></div>
-    <div><div style="color: #4CAF50" th:if="${messUpdate}"><span th:text="${messUpdate}"></span></div></div>
-    <div><div style="color: #4CAF50" th:if="${messDelete}"><span th:text="${messDelete}"></span></div></div>
+    <div>
+        <div style="color: #4CAF50" th:if="${messCreate}"><span th:text="${messCreate}"></span></div>
+    </div>
+    <div>
+        <div style="color: #4CAF50" th:if="${messUpdate}"><span th:text="${messUpdate}"></span></div>
+    </div>
+    <div>
+        <div style="color: #4CAF50" th:if="${messDelete}"><span th:text="${messDelete}"></span></div>
+    </div>
 </h4>
 
+<div class="row">
+    <a class="btn btn-primary" th:href="@{/facility/create}" role="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+             class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5
+        0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+        New Service</a>
 
-<a class="btn btn-primary" th:href="@{/facility/create}" role="button">CREATE NEW FACILITY</a>
-
-<form class="d-flex my-2" role="search" style="margin-left: auto" action="" method="get">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="name" >
-    <button class="btn btn-outline-success" type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>Search</button>
-</form>
-
+    <form class="d-flex my-2" role="search" action="" method="get">
+        <input style="background-color: #f2f2f2; border: 1px solid olivedrab" class="form-control me-2" type="search"
+               placeholder="search..by..name" aria-label="Search"
+               name="name">
+<!--        <input style="background-color: #f2f2f2; border: 1px solid olivedrab" class="form-control me-2" type="search"-->
+<!--               placeholder="search..by..phone" aria-label="Search"-->
+<!--               name="phone">-->
+<!--        <input style="background-color: #f2f2f2; border: 1px solid olivedrab" class="form-control me-2" type="search"-->
+<!--               placeholder="search..by..address" aria-label="Search"-->
+<!--               name="address">-->
+        <button style="background-color: #45a049" class="btn btn-info" type="submit" name="action" value="search">
+            <i class="fa-solid fa-magnifying-glass text-light"></i></button>
+    </form>
+</div>
 <table class="table">
     <thead>
     <tr>
-        <!--        <th scope="col">#</th>-->
+        <th scope="col" class="table-primary">#</th>
         <th scope="col" class="table-primary">Name</th>
         <th scope="col" class="table-primary">Area</th>
         <th scope="col" class="table-primary">Cost</th>
@@ -39,7 +60,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="fac : ${facilityPage}">
+    <tr th:each="fac,row : ${facilityPage}">
+        <td th:text="${row.count}" class="table-info"></td>
         <td th:text="${fac.name}" class="table-info"></td>
         <td th:text="${fac.area}" class="table-info"></td>
         <td th:text="${fac.cost}" class="table-info"></td>
@@ -51,15 +73,16 @@
         <td th:text="${fac.facilityFree}" class="table-info"></td>
         <td class="table-info">
             <a th:href="@{/facility/edit/{id}(id=${fac.id})}" role="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-fill"
-                 viewBox="0 0 16 16">
-                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                     class="bi bi-pencil-fill"
+                     viewBox="0 0 16 16">
+                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5
                 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0
                 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5
                 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5
                  0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5
                  0 0 0 .168-.11l.178-.178z"/>
-            </svg>
+                </svg>
             </a>
         </td>
         <td class="table-info">
@@ -82,10 +105,30 @@
     </tbody>
 </table>
 
-<div>
-    <a th:href="@{'/facility'(page=${facilityPage.number - 1})}" th:if="${facilityPage.hasPrevious()}">Previous</a>
-    <span th:text="${facilityPage.number + 1}"></span>/<span th:text="${facilityPage.totalPages}"></span>
-    <a th:href="@{'/facility'(page=${facilityPage.number + 1})}" th:if="${facilityPage.hasNext()}">Next</a>
+<div style="margin-left: 43%">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" th:href="@{'/facility'(page=${facilityPage.number - 1},search=${name})}"
+                                     th:if="${facilityPage.hasPrevious()}">Previous</a></li>
+            <li class="page-item"><a class="page-link" th:if="${facilityPage.hasPrevious()}"
+                                     th:href="@{'/facility'(page=${facilityPage.number - 1},search=${name})}"
+                                     th:text="${facilityPage.number }"></a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" th:text="${facilityPage.number + 1}"
+                   th:href="@{'/facility'(page=${facilityPage.number},search=${name})}">
+                    <span class="sr-only">(trang hiện tại)</span></a>
+            </li>
+            <li class="page-item"><a class="page-link" th:if="${facilityPage.hasNext()}"
+                                     th:href="@{'/facility'(page=${facilityPage.number + 1},search=${name})}"
+                                     th:text="${facilityPage.number + 2}"></a>
+            </li>
+            <li class="page-item"><a class="page-link" th:href="@{'/facility'(page=${facilityPage.number + 1},search=${name})}" th:if="${facilityPage.hasNext()}">Next</a></li>
+        </ul>
+    </nav>
+<!--    <a th:href="@{'/facility'(page=${facilityPage.number - 1})}" th:if="${facilityPage.hasPrevious()}">Previous</a>-->
+<!--    <span th:text="${facilityPage.number + 1}"></span>/<span th:text="${facilityPage.totalPages}"></span>-->
+<!--    <a th:href="@{'/facility'(page=${facilityPage.number + 1})}" th:if="${facilityPage.hasNext()}">Next</a>-->
 </div>
 
 </body>
@@ -102,7 +145,7 @@
 
             <form th:action="@{/facility/delete}" method="GET">
                 <div class="modal-body">
-                    <span class="h6">facility:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
+                    <span class="h6">Service:</span><strong id="nameDelete" class="text-danger ps-2"></strong>
                     <input type="hidden" name="idDelete" id="idDelete" readonly/>
                 </div>
 

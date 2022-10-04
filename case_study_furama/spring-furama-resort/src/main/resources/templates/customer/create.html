@@ -3,86 +3,73 @@
 <head th:replace="/home/layout :: head"></head>
 <body>
 
-<h3>Create Customer</h3>
+<h2 style="text-align: center;color: cornflowerblue">Create Customer</h2>
+<div class="row">
+    <a class="btn btn-primary" th:href="@{/customer}" role="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-house-door"
+             viewBox="0 0 16 16">
+            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+        </svg>
+        Home</a>
+</div>
 
-<a class="btn btn-primary" th:href="@{/facility}" role="button">Home</a>
-<div id="form">
+<div style="background-color: #caced1">
     <form th:action="@{/customer/save}" th:object="${customerDto}"
-          method="POST" novalidate="novalidate">
-        <table class="table" style="width: 60%;margin-left: 20%" border="1">
-            <tr>
-                <td><input type="hidden" th:field="*{id}"/></td>
-            </tr>
-            <tr>
-                <td>Name:</td>
-                <td><input type="text" th:field="*{name}"/></td>
-            </tr>
-            <tr>
-                <td>Gender:</td>
-                <td>
-                    <select th:field="*{gender}">
-                        <option th:value=1>Male</option>
-                        <option th:value=0>Female</option>
-                    </select>
-                    <!--                    <input type="text" th:field="*{gender}"/>-->
-                    <!--                    <p style="color: red" th:errors="*{gender}"-->
-                    <!--                       th:if="${#fields.hasErrors('gender')}"></p>-->
-                </td>
-            </tr>
-            <tr>
-                <td>Id Card:</td>
-                <td><input type="text" th:field="*{idCard}"/>
-                    <p style="color: red" th:errors="*{idCard}"
-                       th:if="${#fields.hasErrors('idCard')}"></p></td>
-            </tr>
-            <tr>
-                <td>BirthDay:</td>
-                <td>
-                    <input type="text" th:field="*{dateOfBirth}"/>
-                    <p style="color: #45a049" th:errors="*{dateOfBirth}"
-                       th:if="${#fields.hasErrors('dateOfBirth')}"></p>
-                </td>
-            </tr>
+          method="POST" novalidate="novalidate" style="width: 45%;margin-left: 28%">
+        <div class="mb-3">
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+        <div class="mb-3">
+            <b class="col-form-label">Name:</b>
+            <input class="form-control" type="text" th:field="*{name}"/>
+        </div>
+        <div class="mb-3">
+            <b class="col-form-label">Gender:</b>
+            <select th:field="*{gender}" class="form-select">
+                <option th:value=1>Male</option>
+                <option th:value=0>Female</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <b class="col-form-label">Id Card:</b>
+            <input class="form-control" type="text" th:field="*{idCard}"/>
+            <p style="color: red" th:errors="*{idCard}"
+               th:if="${#fields.hasErrors('idCard')}"></p>
+        </div>
+        <div class="mb-3">
+            <b class="col-form-label">BirthDay:</b>
 
-            <tr>
-                <td>Phone:</td>
-                <td>
-                    <input type="number" th:field="*{phone}"/>
-                    <p style="color: red" th:errors="*{phone}"
-                       th:if="${#fields.hasErrors('phone')}"></p>
-                </td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td>
-                    <input type="text" th:field="*{email}"/>
-                    <p style="color: red" th:errors="*{email}"
-                       th:if="${#fields.hasErrors('email')}"></p>
-                </td>
-            </tr>
-            <tr>
-                <td>Address:</td>
-                <td>
-                    <input type="text" th:field="*{address}"/>
-                    <p style="color: red" th:errors="*{address}"
-                       th:if="${#fields.hasErrors('address')}"></p>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Custumer Type:</td>
-                <td>
-                    <select th:field="*{customerType}">
-                        <option th:each="cus : ${customerTypes}" th:value="${cus.id}" th:text="${cus.name}"></option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr>
-                <td><input type="submit" value="Save" style="margin-left: 100%"/></td>
-            </tr>
-
-        </table>
+            <input class="form-control" type="text" th:field="*{dateOfBirth}"/>
+            <p style="color: #45a049" th:errors="*{dateOfBirth}"
+               th:if="${#fields.hasErrors('dateOfBirth')}"></p>
+        </div>
+        <div class="mb-3">
+            <b class="col-form-label">Phone:</b>
+            <input class="form-control" type="number" th:field="*{phone}"/>
+            <p style="color: red" th:errors="*{phone}"
+               th:if="${#fields.hasErrors('phone')}"></p>
+        </div>
+        <div class="mb-3">
+            <b class="col-form-label">Email:</b>
+            <input class="form-control" type="text" th:field="*{email}"/>
+            <p style="color: red" th:errors="*{email}"
+               th:if="${#fields.hasErrors('email')}"></p>
+        </div>
+        <div class="mb-3">
+            <b class="col-form-label">Address:</b>
+            <input class="form-control" type="text" th:field="*{address}"/>
+            <p style="color: red" th:errors="*{address}"
+               th:if="${#fields.hasErrors('address')}"></p>
+        </div>
+        <div class="mb-3">
+            <b class="col-form-label">Custumer Type:</b>
+            <select th:field="*{customerType}" class="form-select">
+                <option th:each="cus : ${customerTypes}" th:value="${cus.id}" th:text="${cus.name}"></option>
+            </select>
+        </div>
+        <div style="margin-left: 30%;height: 100px" class="mb-3">
+            <button class="btn btn-primary" style="height: 50px;width: 50%" type="submit" value="Save">Save</button>
+        </div>
     </form>
 </div>
 <footer th:replace="/home/layout :: footer"></footer>

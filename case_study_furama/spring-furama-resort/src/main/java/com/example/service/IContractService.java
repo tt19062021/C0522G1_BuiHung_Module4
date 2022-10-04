@@ -9,12 +9,10 @@ public interface IContractService {
 
     Page<Contract> findAll(Pageable pageable);
 
-
     Contract findById(int id);
 
     void save(Contract contract);
 
-    void update(Contract contract);
 
     void remove(int id);
 }

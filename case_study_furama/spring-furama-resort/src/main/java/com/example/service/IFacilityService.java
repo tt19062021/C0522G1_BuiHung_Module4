@@ -19,5 +19,6 @@ public interface IFacilityService {
 
     void remove(int id);
 
+    List<Facility> findAll();
     List<IFacilityDto> findIdName();
 }
