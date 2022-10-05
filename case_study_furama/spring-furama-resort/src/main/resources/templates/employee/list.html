@@ -91,7 +91,7 @@
             <!--                '${emp.email}', '${emp.address}', '${emp.positions.id}',-->
             <!--                '${emp.educationDegrees.id}', '${emp.divisions.id}')|"-->
             <a th:href="@{/employee/edit/{id}(id=${emp.id})}"
-               role="button" data-bs-toggle="modal" data-bs-target="#editEmployee">
+               role="button" >
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                      class="bi bi-pencil-fill"
@@ -104,6 +104,7 @@
                  0 0 0 .168-.11l.178-.178z"/>
                 </svg>
             </a>
+            <button hidden id="updateEmployee" data-bs-toggle="modal" data-bs-target="#editEmployee">update</button>
         <td class="table-info">
 
             <a th:attr="onclick=|deleteEmployee('${emp.id}', '${emp.nameEmployee}')|"
@@ -167,7 +168,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form th:action="@{/employee/save}" th:object="${employeeDto}"
+                <form th:action="@{/employee/save}" th:object="${createEmployeeDto}"
                       method="POST" novalidate="novalidate">
                     <div class="mb-3">
                         <label class="col-form-label">Name:</label>
@@ -299,7 +300,14 @@
         </div>
     </div>
 </div>
+<input hidden id="action" th:value="${action}">
 <script>
+    $(document).ready(function (){
+        let action = $("#action").val();
+        if(action==="openUpdate"){
+            $("#updateEmployee").click();
+        }
+    })
     function deleteEmployee(id, nameEmployee) {
         document.getElementById("idDelete").value = id;
         document.getElementById("nameDelete").innerText = nameEmployee;

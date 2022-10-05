@@ -7,14 +7,16 @@
 
 <h2 style="text-align: center; color: blue">CONTRACT</h2>
 
-<a class="btn btn-primary"  role="button" data-bs-toggle="modal" data-bs-target="#addContract">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-         class="bi bi-plus-circle" viewBox="0 0 16 16">
-        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5
+<div class="row">
+    <a class="btn btn-primary"  role="button" data-bs-toggle="modal" data-bs-target="#addContract" style="width: 99%">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+             class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5
         0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-    </svg>
-    New Contract</a>
+        </svg>
+        New Customer</a>
+</div>
 <h4 style="text-align: center;">
     <div>
         <div style="color: #4CAF50" th:if="${messCreate}"><span th:text="${messCreate}"></span></div>
@@ -28,8 +30,8 @@
 </h4>
 
 <table class="table">
-    <thead class="table-dark">
-    <tr>
+    <thead class="table-primary">
+    <tr >
         <!--        <th scope="col">#</th>-->
         <th scope="col">#</th>
         <th scope="col">Facility</th>
@@ -75,7 +77,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">New Contract</h5>
+                <h5 class="modal-title" id="exampleModalLabel1"><b>New Contract</b></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -84,33 +86,33 @@
                         <input type="hidden" class="form-control"  th:field="*{id}">
                     </div>
                     <div class="mb-3">
-                        <label>Start Day:</label>
+                        <b>Start Day:</b>
                         <input type="date" class="form-control"  th:field="*{startDate}">
                     </div>
                     <div class="mb-3">
-                        <label>End Day:</label>
+                        <b>End Day:</b>
                         <input type="date" class="form-control"  th:field="*{endDate}">
                     </div>
                     <div class="mb-3">
-                        <label>Deposit: </label>
+                        <b>Deposit: </b>
                         <input type="text" class="form-control"  th:field="*{deposit}">
                     </div>
                     <div class="mb-3">
-                        <label>Facility   :</label>
+                        <b>Facility   :</b>
                         <select  class="col-form-label" th:field="*{facility}">
                             <option th:each="fac : ${facilitys}" th:value="${fac.id}" th:text="${fac.name}">
                             </option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label>Customer :</label>
+                        <b>Customer :</b>
                         <select  class="col-form-label" th:field="*{customer}">
                             <option th:each="cus : ${customers}" th:value="${cus.id}" th:text="${cus.name}">
                             </option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label>Employee : </label>
+                        <b>Employee : </b>
                         <select  class="col-form-label" th:field="*{employee}">
                             <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.nameEmployee}">
                             </option>
@@ -127,4 +129,5 @@
     </div>
 </div>
 </body>
+<footer th:replace="/home/layout :: footer"></footer>
 </html>

@@ -20,7 +20,6 @@ public class EmployeeDto {
     private EducationDegree educationDegree;
     private Position position;
     private Division division;
-    private Set<Contract> contractSet;
 
 
     public EmployeeDto(int id, String nameEmployee, String dateOfBirth,
@@ -46,7 +45,7 @@ public class EmployeeDto {
     public EmployeeDto(String nameEmployee, String dateOfBirth, String idCard,
                        String phoneNumber, String email, String salary,
                        String address, EducationDegree educationDegree, Position position,
-                       Division division, Set<Contract> contractSet) {
+                       Division division) {
         this.nameEmployee = nameEmployee;
         this.dateOfBirth = dateOfBirth;
         this.idCard = idCard;
@@ -57,26 +56,10 @@ public class EmployeeDto {
         this.educationDegree = educationDegree;
         this.position = position;
         this.division = division;
-        this.contractSet = contractSet;
+
     }
 
-    public EmployeeDto(int id, String nameEmployee, String dateOfBirth,
-                       String idCard, String phoneNumber, String email,
-                       String salary, String address, EducationDegree educationDegree, Position position,
-                       Division division, Set<Contract> contractSet) {
-        this.id = id;
-        this.nameEmployee = nameEmployee;
-        this.dateOfBirth = dateOfBirth;
-        this.idCard = idCard;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.salary = salary;
-        this.address = address;
-        this.educationDegree = educationDegree;
-        this.position = position;
-        this.division = division;
-        this.contractSet = contractSet;
-    }
+
 
     public int getId() {
         return id;
@@ -166,11 +149,7 @@ public class EmployeeDto {
         this.division = division;
     }
 
-    public Set<Contract> getContractSet() {
-        return contractSet;
-    }
 
-    public void setContractSet(Set<Contract> contractSet) {
-        this.contractSet = contractSet;
+    public void setDivision(int id) {
     }
 }

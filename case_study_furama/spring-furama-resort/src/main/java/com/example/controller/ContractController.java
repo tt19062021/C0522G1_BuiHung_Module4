@@ -40,8 +40,6 @@ public class ContractController {
     @Autowired
     private ICustomerService iCustomerService;
 
-
-
     @GetMapping("")
     public String showContract(@PageableDefault(value = 5) Pageable pageable, Model model){
         model.addAttribute("contracts",iContractService.findAll(pageable));

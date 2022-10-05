@@ -26,6 +26,20 @@ public class ContractDto {
     }
 
     public ContractDto(int id, String startDate, String endDate, String deposit,
+                       boolean isDelete, String totalMoney,
+                       Employee employee, Customer customer, Facility facility) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.deposit = deposit;
+        this.isDelete = isDelete;
+        this.totalMoney = totalMoney;
+        this.employee = employee;
+        this.customer = customer;
+        this.facility = facility;
+    }
+
+    public ContractDto(int id, String startDate, String endDate, String deposit,
                        boolean isDelete, String totalMoney, Employee employee,
                        Customer customer,
                        Facility facility, Set<ContractDetail> contractDetailSet) {

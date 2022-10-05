@@ -13,7 +13,7 @@
 </div>
 
 <div style="background-color: #caced1">
-<form th:action="@{/employee/save}" th:object="${employeeDto}"
+<form th:action="@{/employee/save}" th:object="${createEmployeeDto}"
       method="POST" novalidate="novalidate" style="width: 45%;margin-left: 28%" >
     <div class="mb-3">
         <input type="hidden" class="form-control"  th:field="*{id}">

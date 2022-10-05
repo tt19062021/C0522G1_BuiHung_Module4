@@ -3,9 +3,7 @@ package com.example.controller;
 
 import com.example.dto.CustomerDto;
 import com.example.dto.EmployeeDto;
-import com.example.model.Customer;
-import com.example.model.EducationDegree;
-import com.example.model.Employee;
+import com.example.model.*;
 import com.example.service.IDivisionService;
 import com.example.service.IEducationDegreeService;
 import com.example.service.IEmployeeService;
@@ -44,9 +42,10 @@ public class EmployeeController {
                                      @PageableDefault(value = 5)Pageable pageable, Model model){
         model.addAttribute("employees",iEmployeeService.findByName(name,phone,idCard,pageable));
         model.addAttribute("name",name);
+
         model.addAttribute("phone",phone);
         model.addAttribute("idCard",idCard);
-        model.addAttribute("employeeDto", new EmployeeDto());
+        model.addAttribute("createEmployeeDto",new EmployeeDto());
         model.addAttribute("updateEmployeeDto",new EmployeeDto());
         model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
         model.addAttribute("positions", iPositionService.findAll());
@@ -59,7 +58,7 @@ public class EmployeeController {
         model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
         model.addAttribute("positions", iPositionService.findAll());
         model.addAttribute("divisions",iDivisionService.findAll());
-        model.addAttribute("employeeDto", new EmployeeDto());
+        model.addAttribute("createEmployeeDto", new EmployeeDto());
         return "employee/create";
     }
     @PostMapping("/save")
@@ -81,23 +80,44 @@ public class EmployeeController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable int id, Model model) {
-
+    public String edit(@PathVariable int id,@RequestParam(value = "name",defaultValue = "") String name,
+                       @RequestParam(value = "phone",defaultValue = "")String phone,
+                       @RequestParam(value = "idCard",defaultValue = "")String idCard,
+                       @PageableDefault(value = 5)Pageable pageable, Model model){
+        model.addAttribute("employees",iEmployeeService.findByName(name,phone,idCard,pageable));
+        model.addAttribute("name",name);
+        model.addAttribute("phone",phone);
+        model.addAttribute("idCard",idCard);
+        model.addAttribute("employeeDto", new EmployeeDto());
+        model.addAttribute("createEmployeeDto",new EmployeeDto());
+        model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
+        model.addAttribute("positions", iPositionService.findAll());
+        model.addAttribute("divisions",iDivisionService.findAll());
+        model.addAttribute("action","openUpdate");
         Employee employee = iEmployeeService.findById(id);
         EmployeeDto employeeDto = new EmployeeDto();
         BeanUtils.copyProperties(employee, employeeDto);
 
-        model.addAttribute("employees", iEmployeeService.findById(id));
-        model.addAttribute("educationDegrees", iEducationDegreeService.findAll());
-        model.addAttribute("positions", iPositionService.findAll());
-        model.addAttribute("divisions", iDivisionService.findAll());
-        return "employee/edit";
+        Division division = employee.getDivision();
+        employeeDto.setDivision(division);
+
+        Position position = employee.getPosition();
+        employeeDto.setPosition(position);
+
+        EducationDegree educationDegree = employee.getEducationDegree();
+        employeeDto.setEducationDegree(educationDegree);
+
+
+        model.addAttribute("updateEmployeeDto",employeeDto);
+        return "employee/list";
     }
 
     @PostMapping("/update")
     public String update(@ModelAttribute EmployeeDto employeeDto, RedirectAttributes redirectAttributes) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
+
+
         iEmployeeService.save(employee);
         redirectAttributes.addFlashAttribute("messUpdate", "Update Success!");
         return "redirect:/employee";
